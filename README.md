@@ -54,7 +54,7 @@ Direct access links to live deployed web applications built across multiplayer g
 * **Certification:** Full-Stack Software Developer (*Turon International Education Center*)
 * **Direct Phone:** [+998 50 301 63 47](tel:+998503016347)
 * **GitHub Profile:** [`https://github.com/Muhammadislom08`](https://github.com/Muhammadislom08)
-* **Telegram:** `@Muhammadislom_08`
+* **Telegram:** [`@muhammadislom10`](https://t.me/muhammadislom10)
 
 ---
 

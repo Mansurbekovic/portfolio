@@ -173,13 +173,13 @@ export const App: React.FC = () => {
           {/* Action Hotline & Telegram */}
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="https://t.me/Muhammadislom_08"
+              href="https://t.me/muhammadislom10"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-sky-950/60 border border-sky-500/40 text-xs font-mono text-sky-300 hover:bg-sky-900/60 transition-all"
             >
               <Send className="w-3.5 h-3.5 text-sky-400" />
-              <span>@Muhammadislom_08</span>
+              <span>@muhammadislom10</span>
             </a>
 
             <a
@@ -242,13 +242,13 @@ export const App: React.FC = () => {
                 <span>Call: +998 50 301 63 47</span>
               </a>
               <a
-                href="https://t.me/Muhammadislom_08"
+                href="https://t.me/muhammadislom10"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-sky-950/80 border border-sky-500/40 text-sky-300 font-mono text-sm"
               >
                 <Send className="w-4 h-4" />
-                <span>Telegram: @Muhammadislom_08</span>
+                <span>Telegram: @muhammadislom10</span>
               </a>
             </div>
           </div>
@@ -300,13 +300,13 @@ export const App: React.FC = () => {
               </a>
 
               <a
-                href="https://t.me/Muhammadislom_08"
+                href="https://t.me/muhammadislom10"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-semibold text-sm hover:border-sky-400 hover:text-sky-300 transition-all"
               >
                 <Send className="w-4 h-4 text-sky-400" />
-                <span>Telegram: @Muhammadislom_08</span>
+                <span>Telegram: @muhammadislom10</span>
               </a>
             </div>
 
@@ -540,7 +540,7 @@ export const App: React.FC = () => {
 
                 {/* Instant Telegram Card */}
                 <a
-                  href="https://t.me/Muhammadislom_08"
+                  href="https://t.me/muhammadislom10"
                   target="_blank"
                   rel="noreferrer"
                   className="p-6 rounded-2xl border border-sky-500/40 bg-slate-900/80 hover:bg-slate-900 hover:border-sky-400 transition-all block group shadow-lg"
@@ -551,7 +551,7 @@ export const App: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-xs font-mono text-slate-400 uppercase">Direct Telegram Hub</div>
-                      <div className="text-xl font-bold font-mono text-sky-400 mt-0.5">@Muhammadislom_08</div>
+                      <div className="text-xl font-bold font-mono text-sky-400 mt-0.5">@muhammadislom10</div>
                       <div className="text-[11px] text-slate-400 mt-1">24/7 fast messaging</div>
                     </div>
                   </div>
@@ -671,12 +671,12 @@ export const App: React.FC = () => {
             </a>
             <span>•</span>
             <a
-              href="https://t.me/Muhammadislom_08"
+              href="https://t.me/muhammadislom10"
               target="_blank"
               rel="noreferrer"
               className="text-sky-400 hover:text-white transition-colors"
             >
-              @Muhammadislom_08
+              @muhammadislom10
             </a>
           </div>
 

@@ -98,7 +98,7 @@ export const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Telegram Automation Hub</div>
-                    <div className="text-sky-300">@Muhammadislom_08</div>
+                    <div className="text-sky-300">@muhammadislom10</div>
                   </div>
                 </div>
 
