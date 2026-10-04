@@ -69,7 +69,7 @@ def test_argon2id_hashing():
 def test_auth_login_and_token_rotation():
     """Test OAuth2 + JWT authentication and zero-trust token rotation."""
     login_res = client.post("/api/v1/auth/login", json={
-        "username": "admin",
+        "username": "muhammadislom",
         "password": "Antigravity#2026@MilitaryGrade"
     })
     assert login_res.status_code == 200
@@ -119,7 +119,7 @@ def test_projects_catalog():
     res = client.get("/api/v1/projects")
     assert res.status_code == 200
     projects = res.json()
-    assert len(projects) >= 4
+    assert len(projects) == 6
 
     # Detail check
     proj_id = projects[0]["id"]

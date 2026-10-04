@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Terminal, Menu, X, Cpu } from 'lucide-react';
+import { Terminal, Menu, X, Cpu, Phone } from 'lucide-react';
 import { usePortfolioStore } from '../store/useStore';
 
 export const Navbar: React.FC = () => {
@@ -7,11 +7,11 @@ export const Navbar: React.FC = () => {
   const { isTerminalOpen, setTerminalOpen } = usePortfolioStore();
 
   const navItems = [
-    { label: 'Pillars', href: '#pillars' },
+    { label: 'Projects (6 Live)', href: '#projects' },
+    { label: 'Pillars & Skills', href: '#pillars' },
     { label: 'Telemetry', href: '#telemetry' },
     { label: 'Frontier AI', href: '#ai-engine' },
     { label: 'Crypto Lab', href: '#crypto-lab' },
-    { label: 'Showcase', href: '#projects' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -25,11 +25,11 @@ export const Navbar: React.FC = () => {
           </div>
           <div>
             <div className="font-extrabold text-base tracking-wider text-white uppercase flex items-center gap-1.5">
-              <span>ANTIGRAVITY</span>
-              <span className="text-cyan-400 text-xs px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/40">2.0</span>
+              <span>MUHAMMADISLOM</span>
+              <span className="text-cyan-400 text-xs px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/40">TURON</span>
             </div>
             <div className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-              INNOVATIONS
+              ANTIGRAVITY INNOVATIONS
             </div>
           </div>
         </a>
@@ -49,11 +49,13 @@ export const Navbar: React.FC = () => {
 
         {/* Actions & Telemetry indicator */}
         <div className="hidden lg:flex items-center gap-4">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-xs font-mono text-emerald-400 shadow-[0_0_12px_rgba(0,245,155,0.15)]">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>ZERO-TRUST ARMORED</span>
-          </div>
+          <a
+            href="tel:+998503016347"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-xs font-mono text-emerald-400 hover:border-emerald-400 transition-all"
+          >
+            <Phone className="w-3.5 h-3.5" />
+            <span>+998 50 301 63 47</span>
+          </a>
 
           <button
             onClick={() => setTerminalOpen(!isTerminalOpen)}
@@ -88,6 +90,13 @@ export const Navbar: React.FC = () => {
             </a>
           ))}
           <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
+            <a
+              href="tel:+998503016347"
+              className="flex items-center justify-center gap-2 py-2 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-sm font-mono"
+            >
+              <Phone className="w-4 h-4" />
+              <span>+998 50 301 63 47</span>
+            </a>
             <button
               onClick={() => {
                 setTerminalOpen(true);

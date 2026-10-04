@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, Shield, Code2, Globe, Share2 } from 'lucide-react';
+import { Terminal, Shield, Code2, Globe, Phone, Award } from 'lucide-react';
 import { usePortfolioStore } from '../store/useStore';
 
 export const Footer: React.FC = () => {
@@ -22,11 +22,18 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-sm text-slate-400 mt-1">
-              Where unbreakable security meets artful engineering.
+              Official Portfolio of Rustambekov Muhammadislom Mansurbekovich
             </p>
           </div>
 
           <div className="flex items-center gap-3">
+            <a
+              href="tel:+998503016347"
+              className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-colors"
+              title="Call Muhammadislom (+998 50 301 63 47)"
+            >
+              <Phone className="w-5 h-5" />
+            </a>
             <button
               onClick={() => setTerminalOpen(true)}
               className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
@@ -35,42 +42,34 @@ export const Footer: React.FC = () => {
               <Terminal className="w-5 h-5" />
             </button>
             <a
-              href="https://github.com"
+              href="https://github.com/Muhammadislom08"
               target="_blank"
               rel="noreferrer"
               className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
-              title="Code Repository"
+              title="GitHub Profile"
             >
               <Code2 className="w-5 h-5" />
             </a>
             <a
-              href="https://antigravity.innovations"
-              target="_blank"
-              rel="noreferrer"
+              href="#projects"
               className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
-              title="Global Network"
+              title="Featured 6 Live Apps"
             >
               <Globe className="w-5 h-5" />
-            </a>
-            <a
-              href="#contact"
-              className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
-              title="Secure Channel"
-            >
-              <Share2 className="w-5 h-5" />
             </a>
           </div>
 
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-slate-400 gap-4">
-          <div>
-            © {new Date().getFullYear()} Antigravity Innovations. All digital assets encrypted under Zero-Trust protocols.
+          <div className="flex items-center gap-2">
+            <Award className="w-4 h-4 text-cyan-400" />
+            <span>Certified by Turon International Education Center</span>
           </div>
           <div className="flex items-center gap-6">
             <span>React 19 + TypeScript</span>
             <span>Python FastAPI</span>
-            <span>Argon2id + AES-256</span>
+            <span>Telegram Bot Architecture</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, ShieldCheck, Mail, Key, CheckCircle2 } from 'lucide-react';
+import { Send, Mail, CheckCircle2, Phone, Award, MessageSquare } from 'lucide-react';
 import { apiService } from '../services/api';
 
 export const ContactSection: React.FC = () => {
@@ -33,16 +33,16 @@ export const ContactSection: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-xs font-mono text-cyan-400 tracking-widest uppercase mb-3">
-            SECURE ENGAGEMENT CHANNEL
+            DIRECT ENGINEERING HOTLINE & INGRESS
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Initiate Contact.{' '}
+            Connect With Muhammadislom.{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
               Zero-Trust Encrypted.
             </span>
           </h2>
           <p className="text-slate-400 mt-4 text-base sm:text-lg">
-            Ready to elevate your digital horizon with unbreakable security and artful engineering? Dispatch a secure transmission directly to our engineering team.
+            Ready to deploy enterprise web platforms, high-throughput Telegram automation bots, or secure backend architectures? Get in touch directly.
           </p>
         </div>
 
@@ -51,40 +51,60 @@ export const ContactSection: React.FC = () => {
           {/* Info Side */}
           <div className="lg:col-span-5 space-y-6">
             <div className="p-6 rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl">
-              <h3 className="text-xl font-bold text-white mb-2">Engineering Headquarters</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Antigravity Innovations operates globally across distributed cryptographic nodes. All incoming inquiries are routed through zero-knowledge verification pipelines.
-              </p>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
+                  <Award className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">Rustambekov Muhammadislom</h3>
+                  <p className="text-xs font-mono text-cyan-400">Full-Stack Software Engineer</p>
+                </div>
+              </div>
 
-              <div className="mt-6 space-y-4 font-mono text-xs text-slate-300">
-                <div className="flex items-center gap-3">
+              <div className="p-3.5 rounded-xl bg-black/40 border border-slate-800 text-xs font-mono text-slate-300 leading-relaxed mb-6">
+                Certified by <strong className="text-white">Turon International Education Center</strong>. Specializing in high-performance React 19 apps, Python FastAPI services, and Telegram bot automation.
+              </div>
+
+              <div className="space-y-4 font-mono text-xs text-slate-300">
+                {/* Phone Link */}
+                <a
+                  href="tel:+998503016347"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-emerald-500/30 hover:border-emerald-400 hover:bg-slate-900 transition-all group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-slate-400 uppercase">Direct Phone Hotline</div>
+                    <div className="text-emerald-400 font-bold text-sm">+998 50 301 63 47</div>
+                  </div>
+                </a>
+
+                {/* Email */}
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800">
                   <div className="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Secure Ingress Email</div>
-                    <div className="text-white">intel@antigravity.innovations</div>
+                    <div className="text-white">muhammadislom@antigravity.innovations</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-purple-950 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                    <Key className="w-4 h-4" />
+                {/* Telegram */}
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800">
+                  <div className="w-8 h-8 rounded-lg bg-sky-950 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                    <MessageSquare className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-slate-500 uppercase">PGP Fingerprint</div>
-                    <div className="text-purple-300 truncate max-w-[240px]">4A9F 8B2C 001D 77FE B192</div>
+                    <div className="text-[10px] text-slate-500 uppercase">Telegram Automation Hub</div>
+                    <div className="text-sky-300">@Muhammadislom_08</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-slate-500 uppercase">Protection Level</div>
-                    <div className="text-emerald-400">End-to-End Encrypted (AES-256-GCM)</div>
-                  </div>
+                {/* Credo */}
+                <div className="pt-2 text-[11px] text-slate-400 italic">
+                  "Ethical Engineering. Absolute Security. Beyond Gravity."
                 </div>
               </div>
             </div>
@@ -97,28 +117,28 @@ export const ContactSection: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-xs font-mono text-slate-300 uppercase mb-2">
-                      Principal Name
+                      Your Name
                     </label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. Alex Mercer"
+                      placeholder="e.g. Azizbek Karimov"
                       className="w-full rounded-xl bg-slate-950 border border-slate-700/80 p-3 font-mono text-xs text-white focus:outline-none focus:border-cyan-400"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-mono text-slate-300 uppercase mb-2">
-                      Verification Email
+                      Your Email
                     </label>
                     <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="alex@enterprise.corp"
+                      placeholder="azizbek@enterprise.uz"
                       className="w-full rounded-xl bg-slate-950 border border-slate-700/80 p-3 font-mono text-xs text-white focus:outline-none focus:border-cyan-400"
                     />
                   </div>
@@ -126,28 +146,28 @@ export const ContactSection: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-mono text-slate-300 uppercase mb-2">
-                    Subject / Objective
+                    Project Type / Subject
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="Project Inquiry / Enterprise Security Architecture"
+                    placeholder="Web Application / Telegram Bot / Backend Architecture"
                     className="w-full rounded-xl bg-slate-950 border border-slate-700/80 p-3 font-mono text-xs text-white focus:outline-none focus:border-cyan-400"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-mono text-slate-300 uppercase mb-2">
-                    Transmission Content
+                    Message / Technical Requirements
                   </label>
                   <textarea
                     rows={4}
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Describe your technical requirements, architecture constraints, or project scope..."
+                    placeholder="Describe your technical requirements, goals, or project scope..."
                     className="w-full rounded-xl bg-slate-950 border border-slate-700/80 p-3.5 font-mono text-xs text-white focus:outline-none focus:border-cyan-400"
                   />
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Cpu, ChevronRight, X, Code2 } from 'lucide-react';
+import { Shield, Cpu, ChevronRight, X, ExternalLink, Globe, ArrowUpRight } from 'lucide-react';
 import { apiService } from '../services/api';
 import type { ProjectItem } from '../types';
 
@@ -8,7 +8,15 @@ export const ProjectShowcase: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
-  const categories = ['All', 'Cybersecurity', 'Cryptographic Storage', 'Creative Engineering', 'Frontier AI'];
+  const categories = [
+    'All',
+    'Real-Time Gaming',
+    'Modern Web Platforms',
+    'FinTech & Accounting',
+    'EdTech & Interactive Learning',
+    'E-Commerce & Retail',
+    'Sports Analytics'
+  ];
 
   useEffect(() => {
     apiService.getProjects().then(setProjects);
@@ -25,16 +33,16 @@ export const ProjectShowcase: React.FC = () => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="text-xs font-mono text-cyan-400 tracking-widest uppercase mb-3">
-            PORTFOLIO ARTIFACTS
+            VERIFIED PRODUCTION DEPLOYMENTS
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            High-Stakes Solutions.{' '}
+            Featured Live Showcase.{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400">
-              Pioneering Artifacts.
+              6 Production Apps.
             </span>
           </h2>
           <p className="text-slate-400 mt-4 text-base sm:text-lg">
-            Whether showcasing enterprise-grade AI solutions or pioneering creative projects, Antigravity delivers an ultra-secure and unforgettable digital presence.
+            Directly test and explore my live deployed applications across multiplayer gaming, financial accounting, e-commerce, and education.
           </p>
         </div>
 
@@ -44,7 +52,7 @@ export const ProjectShowcase: React.FC = () => {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full font-mono text-xs transition-all ${
+              className={`px-4 py-2 rounded-full font-mono text-xs transition-all ${
                 activeCategory === cat
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-[0_0_20px_rgba(0,242,254,0.4)]'
                   : 'bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
@@ -56,38 +64,37 @@ export const ProjectShowcase: React.FC = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              onClick={() => setSelectedProject(project)}
-              className="group rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-8 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer shadow-xl hover:border-cyan-500/50 hover:shadow-[0_0_35px_rgba(0,242,254,0.15)] flex flex-col justify-between"
+              className="group rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-7 hover:-translate-y-1.5 transition-all duration-300 shadow-xl hover:border-cyan-500/50 hover:shadow-[0_0_35px_rgba(0,242,254,0.15)] flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono px-3 py-1 rounded-md bg-cyan-950/80 text-cyan-300 border border-cyan-500/30">
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/30">
                     {project.category}
                   </span>
-                  <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                  <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
                     <Shield className="w-3.5 h-3.5" />
                     <span>{project.security_rating}</span>
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+                <h3 className="text-xl font-bold text-white mb-2.5 group-hover:text-cyan-300 transition-colors">
                   {project.title}
                 </h3>
 
-                <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                <p className="text-sm text-slate-300 leading-relaxed mb-5">
                   {project.summary}
                 </p>
 
                 {/* Tech Stack Pills */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1.5 mb-6">
                   {project.tech_stack.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-[11px] font-mono px-2.5 py-1 rounded bg-black/40 border border-white/10 text-slate-300"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/40 border border-white/10 text-slate-300"
                     >
                       {tech}
                     </span>
@@ -95,9 +102,27 @@ export const ProjectShowcase: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs font-mono text-cyan-400 group-hover:translate-x-1 transition-transform">
-                <span className="font-bold">INSPECT ARCHITECTURE SPECIFICATION</span>
-                <ChevronRight className="w-4 h-4" />
+              <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                {project.demo_url && (
+                  <a
+                    href={project.demo_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 font-bold font-mono text-xs shadow-md hover:shadow-cyan-500/30 hover:scale-105 transition-all"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    <span>Live App</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                )}
+
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="inline-flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-cyan-400 transition-colors py-2 px-2"
+                >
+                  <span>Specs</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
           ))}
@@ -160,21 +185,21 @@ export const ProjectShowcase: React.FC = () => {
               </div>
 
               {/* Modal Actions */}
-              <div className="flex items-center gap-4 pt-4 border-t border-slate-800">
-                {selectedProject.github_url && (
+              <div className="flex items-center gap-4 pt-4 border-t border-slate-800 flex-wrap">
+                {selectedProject.demo_url && (
                   <a
-                    href={selectedProject.github_url}
+                    href={selectedProject.demo_url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono text-xs hover:border-cyan-400 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 font-bold font-mono text-xs shadow-lg hover:shadow-cyan-400/40 transition-all"
                   >
-                    <Code2 className="w-4 h-4" />
-                    <span>View Repository</span>
+                    <ExternalLink className="w-4 h-4" />
+                    <span>Launch Live Production App</span>
                   </a>
                 )}
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="ml-auto px-5 py-2.5 rounded-lg bg-cyan-500 text-slate-950 font-bold font-mono text-xs hover:bg-cyan-400 transition-colors"
+                  className="ml-auto px-5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono text-xs hover:border-slate-500 transition-colors"
                 >
                   Close Specification
                 </button>

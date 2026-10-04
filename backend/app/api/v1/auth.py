@@ -20,12 +20,20 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_PREFIX}/auth/to
 DEMO_PASSWORD_HASH = hash_password("Antigravity#2026@MilitaryGrade")
 
 MOCK_USERS = {
+    "muhammadislom": {
+        "id": "sec-usr-001",
+        "username": "muhammadislom",
+        "password_hash": DEMO_PASSWORD_HASH,
+        "role": "Full-Stack Software Engineer",
+        "security_clearance": "TURON-CERTIFIED (DEFCON-1)",
+        "two_factor_enabled": True
+    },
     "admin": {
         "id": "sec-usr-001",
-        "username": "admin",
+        "username": "muhammadislom",
         "password_hash": DEMO_PASSWORD_HASH,
-        "role": "Security Architect",
-        "security_clearance": "DEFCON-1",
+        "role": "Full-Stack Software Engineer",
+        "security_clearance": "TURON-CERTIFIED (DEFCON-1)",
         "two_factor_enabled": True
     },
     "guest": {

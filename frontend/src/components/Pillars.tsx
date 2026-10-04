@@ -1,86 +1,86 @@
 import React from 'react';
-import { ShieldCheck, Cpu, BrainCircuit, Sparkles, Gauge } from 'lucide-react';
+import { ShieldCheck, Cpu, Bot, Sparkles, Gauge } from 'lucide-react';
 
 export const Pillars: React.FC = () => {
   const pillars = [
+    {
+      id: 'frontend-architecture',
+      icon: Cpu,
+      iconColor: 'text-cyan-400',
+      bgColor: 'bg-cyan-950/20 border-cyan-500/30',
+      glow: 'group-hover:border-cyan-500/60',
+      tag: 'FRONTEND MASTERY',
+      title: 'Modern Frontend Architecture',
+      desc: 'Crafting responsive, dynamic, and accessible interfaces with React 19, TypeScript 5.x, Tailwind CSS v4, and Canvas/WebGL visuals for 120 FPS buttery-smooth performance.',
+      specs: [
+        'React 19 & TypeScript 5.x state systems',
+        'Tailwind CSS v4 with custom neon shaders',
+        'Canvas & WebGL spatial particle dynamics',
+        'Mobile-first responsive design across all viewports'
+      ]
+    },
+    {
+      id: 'backend-systems',
+      icon: Gauge,
+      iconColor: 'text-purple-400',
+      bgColor: 'bg-purple-950/20 border-purple-500/30',
+      glow: 'group-hover:border-purple-500/60',
+      tag: 'ASYNCHRONOUS BACKEND',
+      title: 'Python & Node.js Backend Ecosystems',
+      desc: 'Engineering high-throughput asynchronous backends with FastAPI and Node.js. Delivering sub-10ms RESTful endpoints, persistent WebSockets, and resilient database management.',
+      specs: [
+        'FastAPI asynchronous execution loop',
+        'Pydantic v2 strict schema enforcement',
+        'Real-time WebSocket multiplayer synchronization',
+        'PostgreSQL & Redis caching integration'
+      ]
+    },
+    {
+      id: 'telegram-bots',
+      icon: Bot,
+      iconColor: 'text-sky-400',
+      bgColor: 'bg-sky-950/20 border-sky-500/30',
+      glow: 'group-hover:border-sky-500/60',
+      tag: 'HIGH-THROUGHPUT AUTOMATION',
+      title: 'Telegram Bot Engineering',
+      desc: 'Developing intelligent, high-concurrency Telegram bots equipped with custom business logic, payment gateways, webhook streaming, and automated CRM workflows.',
+      specs: [
+        'Aiogram / Python-Telegram-Bot async pipelines',
+        'Custom webhook architecture with zero dropped events',
+        'Automated database sync & state persistence',
+        'Interactive inline keyboards & webapp integrations'
+      ]
+    },
     {
       id: 'zero-trust',
       icon: ShieldCheck,
       iconColor: 'text-emerald-400',
       bgColor: 'bg-emerald-950/20 border-emerald-500/30',
       glow: 'group-hover:border-emerald-500/60',
-      tag: 'MILITARY-GRADE DEFENSE',
-      title: 'Zero-Trust Security Architecture',
-      desc: 'Engineered with military-grade AES-256/RSA encryption, real-time threat telemetry, strict CORS/CSP level 3 policies, and automated DDoS mitigation to ensure your digital assets remain completely impenetrable.',
+      tag: 'ENTERPRISE DEFENSE',
+      title: 'Zero-Trust Security & Cryptography',
+      desc: 'Hardening digital assets with Argon2id password hashing, AES-256-GCM authenticated encryption, OAuth2 with token rotation, and strict CSP/CORS defense headers.',
       specs: [
-        'Mutual TLS 1.3 & Perfect Forward Secrecy',
-        'Argon2id hashing with 64MB memory hardness',
-        'Strict HSTS, CSP, and X-Frame-Options: DENY',
-        'Automated Sentry and Prometheus anomaly traps'
+        'Argon2id hashing (64MB RAM hardness)',
+        'AES-256-GCM authenticated cipher with 96-bit IVs',
+        'Strict HSTS, CSP Level 3, and X-Frame-Options: DENY',
+        'Slowapi intelligent IP rate-limiting'
       ]
     },
     {
-      id: 'tech-stack',
-      icon: Cpu,
-      iconColor: 'text-cyan-400',
-      bgColor: 'bg-cyan-950/20 border-cyan-500/30',
-      glow: 'group-hover:border-cyan-500/60',
-      tag: 'ENTERPRISE ARCHITECTURE',
-      title: 'Cutting-Edge Stack (Python + React)',
-      desc: 'Powered by an enterprise-grade Python backend (FastAPI Async) and a state-of-the-art React 19 frontend with Server Components, WebGL shaders, Tailwind CSS v4, and Zustand for ultra-smooth 120 FPS performance.',
-      specs: [
-        'React 19, TypeScript 5.x & Vite 8',
-        'FastAPI async loop handling 10k+ RPS',
-        'Pydantic v2 strict type validation',
-        'Three.js GLSL spatial background shaders'
-      ]
-    },
-    {
-      id: 'frontier-ai',
-      icon: BrainCircuit,
-      iconColor: 'text-purple-400',
-      bgColor: 'bg-purple-950/20 border-purple-500/30',
-      glow: 'group-hover:border-purple-500/60',
-      tag: 'COGNITIVE ENGINE',
-      title: 'Frontier AI Integration',
-      desc: 'Harnesses the cognitive power of top-tier AI models (Claude 3.5 Sonnet / Gemini 3.5 Pro) for real-time dynamic UI generation, intelligent project analytics, and automated code integrity checks.',
-      specs: [
-        'Dual Gemini 3.5 Pro & Claude 3.5 Sonnet orchestration',
-        'Automated AST vulnerability & supply-chain scanning',
-        'Dynamic component code synthesis on demand',
-        'LangChain & LlamaIndex semantic retrieval'
-      ]
-    },
-    {
-      id: 'spatial-design',
+      id: 'certified-excellence',
       icon: Sparkles,
-      iconColor: 'text-pink-400',
-      bgColor: 'bg-pink-950/20 border-pink-500/30',
-      glow: 'group-hover:border-pink-500/60',
-      tag: '120 FPS FLUIDITY',
-      title: 'Fluid & Intuitive Design',
-      desc: 'A visually captivating interface crafted with dynamic micro-interactions, responsive motion graphics, and clean spatial layouts that captivate audiences instantly without layout shifts.',
-      specs: [
-        'Hardware-accelerated CSS GPU matrix transforms',
-        'Anti-gravity canvas particle simulation with repulsion',
-        'Glassmorphic backdrop blur & obsidian aesthetics',
-        'Adaptive mobile & desktop touch ergonomics'
-      ]
-    },
-    {
-      id: 'performance',
-      icon: Gauge,
       iconColor: 'text-amber-400',
       bgColor: 'bg-amber-950/20 border-amber-500/30',
       glow: 'group-hover:border-amber-500/60',
-      tag: 'ZERO-LATENCY',
-      title: 'High-Performance Functionality',
-      desc: 'Blazing-fast load times, seamless API integrations, edge-caching, and scalable modular code designed to handle complex workflows with precision and absolute reliability.',
+      tag: 'TURON ACCREDITED',
+      title: 'Turon Certified Engineering',
+      desc: 'Certified by Turon International Education Center. Dedicated to writing clean, modular, maintainable code that scales from startup prototypes to high-stakes enterprise platforms.',
       specs: [
-        'Sub-10ms global edge response times',
-        'TanStack Query optimistic data sync',
-        'Zero-trust token rotation with ephemeral JTI',
-        'Autonomous BGP Anycast scrubbing'
+        'Full-Stack Software Developer Diploma',
+        'Rigorous automated test-driven development',
+        'Continuous integration & live cloud deployment',
+        'Ethical engineering & absolute security'
       ]
     }
   ];
@@ -90,16 +90,16 @@ export const Pillars: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-xs font-mono text-cyan-400 tracking-widest uppercase mb-3">
-            ARCHITECTURAL FOUNDATION
+            TECHNICAL ARSENAL & CORE PILLARS
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Engineered for Extremes.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
-              Key Pillars.
+            Specialized Skills.{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400">
+              Battle-Tested Foundations.
             </span>
           </h2>
           <p className="text-slate-400 mt-4 text-base sm:text-lg">
-            Every layer of Antigravity is purposefully built to harmonize rigorous military-grade security with fluid, unforgettable spatial artistry.
+            Every layer of Rustambekov Muhammadislom's engineering practice is built on reliable architectural principles and verified certifications.
           </p>
         </div>
 
