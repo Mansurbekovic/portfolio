@@ -17,8 +17,8 @@ export const App: React.FC = () => {
           {/* Clean Minimalist Navigation Bar */}
           <Navbar />
 
-          {/* Dedicated Page Views */}
-          <main className="flex-grow">
+          {/* Dedicated Page Views (pt-16 for fixed navbar clearance) */}
+          <main className="flex-grow pt-16">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
