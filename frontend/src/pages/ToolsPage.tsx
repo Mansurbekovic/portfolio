@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Lock,
   RefreshCw,
@@ -8,7 +8,12 @@ import {
   FileCode,
   Binary,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Type,
+  Clock,
+  Mic,
+  Palette,
+  Sparkles
 } from 'lucide-react';
 
 export const ToolsPage: React.FC = () => {
@@ -117,6 +122,61 @@ export const ToolsPage: React.FC = () => {
     } catch {
       setB64Output('Error: Invalid base64 sequence');
     }
+  };
+
+  // 5. Text Statistics & Readability State
+  const [statsText, setStatsText] = useState(
+    'Antigravity Innovations provides enterprise-grade full-stack solutions and high-throughput Telegram bots. Certified by Turon International Education Center, Muhammadislom Rustambekov engineers resilient and ultra-secure web services.'
+  );
+
+  const textMetrics = useMemo(() => {
+    const charsWithSpaces = statsText.length;
+    const charsWithoutSpaces = statsText.replace(/\s+/g, '').length;
+    const trimmed = statsText.trim();
+    const words = trimmed ? trimmed.split(/\s+/).length : 0;
+    const sentences = trimmed ? (trimmed.match(/[^.!?]+[.!?]+(\s|$)/g) || [trimmed]).length : 0;
+    const paragraphs = trimmed ? trimmed.split(/\n+/).filter(Boolean).length : 0;
+
+    // Reading time: avg 200 words per minute
+    const readMinutes = Math.ceil((words / 200) * 60); // in seconds
+    const readTimeFormatted =
+      readMinutes < 60 ? `${readMinutes}s read` : `${Math.ceil(readMinutes / 60)} min read`;
+
+    // Speaking time: avg 130 words per minute
+    const speakMinutes = Math.ceil((words / 130) * 60); // in seconds
+    const speakTimeFormatted =
+      speakMinutes < 60 ? `${speakMinutes}s speech` : `${Math.ceil(speakMinutes / 60)} min speech`;
+
+    return {
+      charsWithSpaces,
+      charsWithoutSpaces,
+      words,
+      sentences,
+      paragraphs,
+      readTimeFormatted,
+      speakTimeFormatted
+    };
+  }, [statsText]);
+
+  // 6. Code Snippet Card Generator State
+  const [snippetCode, setSnippetCode] = useState(
+    `// FastAPI Async Dispatcher\nasync def stream_telemetry(session_id: str):\n    digest = hmac.new(SECRET, session_id.encode(), hashlib.sha256).hexdigest()\n    return {"status": "authorized", "digest": digest}`
+  );
+  const [snippetLang, setSnippetLang] = useState('python');
+  const [snippetTheme, setSnippetTheme] = useState<'charcoal' | 'slate' | 'cyber' | 'amber'>('charcoal');
+  const [copiedSnippet, setCopiedSnippet] = useState(false);
+
+  const copySnippet = () => {
+    navigator.clipboard.writeText(snippetCode);
+    setCopiedSnippet(true);
+    setTimeout(() => setCopiedSnippet(false), 2000);
+  };
+
+  const themeStyles = {
+    charcoal: { bg: 'bg-[#111827]', border: 'border-[#1F2937]', text: 'text-[#F9FAFB]', dot: 'bg-[#4B5563]' },
+    slate: { bg: 'bg-[#0F172A]', border: 'border-[#1E293B]', text: 'text-[#38BDF8]', dot: 'bg-[#334155]' },
+    cyber: { bg: 'bg-[#022C22]', border: 'border-[#064E3B]', text: 'text-[#34D399]', dot: 'bg-[#065F46]' },
+    amber: { bg: 'bg-[#291804]', border: 'border-[#78350F]', text: 'text-[#FCD34D]', dot: 'bg-[#B45309]' }
   };
 
   return (
@@ -435,6 +495,159 @@ export const ToolsPage: React.FC = () => {
                 className="w-full btn-primary text-xs py-2"
               >
                 Execute Conversion
+              </button>
+            </div>
+          </div>
+
+          {/* Tool 5: Text Statistics & Readability Analyzer */}
+          <div className="minimal-card p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E8E2D7]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                    <Type className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-[#111827]">Text Statistics & Reading Time</h3>
+                    <p className="text-[11px] text-[#6B7280]">Content & Speech Analyzer</p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setStatsText('')}
+                  className="text-xs text-[#9CA3AF] hover:text-[#DC2626] font-mono transition-colors"
+                >
+                  Clear
+                </button>
+              </div>
+
+              <textarea
+                value={statsText}
+                onChange={(e) => setStatsText(e.target.value)}
+                placeholder="Type or paste your text here to compute statistics..."
+                rows={4}
+                className="w-full p-3 rounded-[5px] bg-[#F9FAFB] border border-[#E5E7EB] font-sans text-xs text-[#111827] focus:outline-none focus:border-[#D97706]"
+              />
+
+              {/* Statistics Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4">
+                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
+                  <div className="text-[10px] font-mono text-[#6B7280]">Words</div>
+                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.words}</div>
+                </div>
+                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
+                  <div className="text-[10px] font-mono text-[#6B7280]">Characters</div>
+                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.charsWithSpaces}</div>
+                </div>
+                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
+                  <div className="text-[10px] font-mono text-[#6B7280]">No Spaces</div>
+                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.charsWithoutSpaces}</div>
+                </div>
+                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
+                  <div className="text-[10px] font-mono text-[#6B7280]">Sentences</div>
+                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.sentences}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-4 border-t border-[#F3EFEA] grid grid-cols-2 gap-3 text-xs font-mono">
+              <div className="flex items-center gap-2 p-2 rounded-[4px] bg-[#FEF3C7] text-[#92400E]">
+                <Clock className="w-3.5 h-3.5 text-[#D97706] shrink-0" />
+                <span className="truncate">Reading: {textMetrics.readTimeFormatted}</span>
+              </div>
+              <div className="flex items-center gap-2 p-2 rounded-[4px] bg-[#F3EFEA] text-[#374151]">
+                <Mic className="w-3.5 h-3.5 text-[#6B7280] shrink-0" />
+                <span className="truncate">Speech: {textMetrics.speakTimeFormatted}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Tool 6: Code Snippet Card Generator */}
+          <div className="minimal-card p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E8E2D7]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-[#111827]">Code Snippet Card Generator</h3>
+                    <p className="text-[11px] text-[#6B7280]">Syntax Presenter</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <select
+                    value={snippetLang}
+                    onChange={(e) => setSnippetLang(e.target.value)}
+                    className="p-1 rounded-[3px] bg-[#FFFFFF] border border-[#E5E7EB] text-[11px] font-mono text-[#111827]"
+                  >
+                    <option value="python">Python</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="rust">Rust</option>
+                    <option value="go">Go</option>
+                    <option value="sql">SQL</option>
+                  </select>
+
+                  <button
+                    type="button"
+                    onClick={copySnippet}
+                    className="text-xs text-[#D97706] hover:text-[#B45309] flex items-center gap-1 font-mono"
+                  >
+                    {copiedSnippet ? <Check className="w-3 h-3 text-[#059669]" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedSnippet ? 'Copied' : 'Copy'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Theme Picker */}
+              <div className="flex items-center gap-2 mb-3 text-xs font-mono text-[#4B5563]">
+                <Palette className="w-3.5 h-3.5 text-[#6B7280]" />
+                <span className="text-[11px]">Theme:</span>
+                {(['charcoal', 'slate', 'cyber', 'amber'] as const).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setSnippetTheme(t)}
+                    className={`px-2 py-0.5 rounded-[3px] text-[10px] uppercase font-bold transition-all ${
+                      snippetTheme === t
+                        ? 'bg-[#111827] text-white'
+                        : 'bg-[#F3EFEA] text-[#6B7280] hover:text-[#111827]'
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+
+              {/* Live Styled Code Card Preview */}
+              <div className={`p-4 rounded-[6px] ${themeStyles[snippetTheme].bg} border ${themeStyles[snippetTheme].border} shadow-inner`}>
+                <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
+                  </div>
+                  <span className="text-[10px] font-mono text-white/50 uppercase tracking-widest">{snippetLang}</span>
+                </div>
+                <textarea
+                  value={snippetCode}
+                  onChange={(e) => setSnippetCode(e.target.value)}
+                  rows={4}
+                  className={`w-full bg-transparent border-0 font-mono text-xs ${themeStyles[snippetTheme].text} focus:outline-none resize-none`}
+                />
+              </div>
+            </div>
+
+            <div className="pt-4 mt-4 border-t border-[#F3EFEA] flex justify-between items-center text-[11px] font-mono text-[#6B7280]">
+              <span>Ready for documentation or sharing</span>
+              <button
+                type="button"
+                onClick={copySnippet}
+                className="btn-primary text-xs py-1.5 px-3"
+              >
+                Copy Code
               </button>
             </div>
           </div>

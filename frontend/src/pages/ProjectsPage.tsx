@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Search, Globe, CheckCircle2, ArrowUpRight } from 'lucide-react';
-import { LIVE_PROJECTS } from '../data/projectsData';
+import { Search, Globe, CheckCircle2, ArrowUpRight, Eye } from 'lucide-react';
+import { LIVE_PROJECTS, type LiveProject } from '../data/projectsData';
+import { ProjectDemoModal } from '../components/ProjectDemoModal';
 
 export const ProjectsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedDemo, setSelectedDemo] = useState<LiveProject | null>(null);
 
   const categories = [
     'All',
@@ -38,7 +40,7 @@ export const ProjectsPage: React.FC = () => {
             Live Showcase Projects
           </h1>
           <p className="text-base text-[#4B5563] leading-relaxed max-w-2xl">
-            Explore 6 real, live web applications built and deployed by Muhammadislom Rustambekov. Every project is fully accessible online with instant links.
+            Explore 6 real, live web applications built and deployed by Muhammadislom Rustambekov. Every project is fully accessible online with instant links and in-page preview.
           </p>
         </div>
 
@@ -126,22 +128,37 @@ export const ProjectsPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Action Button */}
-              <div className="pt-4 border-t border-[#F3EFEA]">
+              {/* Action Buttons: Preview & Direct Visit */}
+              <div className="pt-4 border-t border-[#F3EFEA] flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedDemo(project)}
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-[5px] bg-[#F3EFEA] hover:bg-[#E8E2D7] text-[#111827] text-xs font-mono font-medium transition-all"
+                >
+                  <Eye className="w-3.5 h-3.5 text-[#D97706]" />
+                  <span>Preview</span>
+                </button>
+
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-[5px] bg-[#111827] text-white font-medium text-xs hover:bg-[#1F2937] transition-all"
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-[5px] bg-[#111827] text-white font-medium text-xs hover:bg-[#1F2937] transition-all"
                 >
                   <Globe className="w-3.5 h-3.5 text-[#F59E0B]" />
-                  <span>Visit Live Website</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#9CA3AF]" />
+                  <span>Visit Site</span>
+                  <ArrowUpRight className="w-3 h-3 text-[#9CA3AF]" />
                 </a>
               </div>
             </div>
           ))}
         </div>
+
+        {/* In-Place Project Demo Modal */}
+        <ProjectDemoModal
+          project={selectedDemo}
+          onClose={() => setSelectedDemo(null)}
+        />
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-16 text-[#6B7280] text-sm">

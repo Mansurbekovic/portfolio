@@ -141,3 +141,12 @@ def test_encrypted_contact_submission():
     assert data["status"] == "DISPATCH_CONFIRMED"
     assert "cryptographic_receipt" in data
     assert data["cryptographic_receipt"].startswith("SHA256-")
+
+def test_telegram_bot_status():
+    """Verify Telegram bot operational telemetry endpoint."""
+    res = client.get("/api/v1/contact/bot-status")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "ONLINE"
+    assert "muhammadislom10" in data["bot_handle"]
+    assert "99.99%" in data["uptime"]
