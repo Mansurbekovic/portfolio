@@ -1,112 +1,121 @@
 import React, { useState } from 'react';
-import { Terminal, Menu, X, Cpu, Phone } from 'lucide-react';
-import { usePortfolioStore } from '../store/useStore';
+import { NavLink } from 'react-router-dom';
+import { Phone, Send, Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isTerminalOpen, setTerminalOpen } = usePortfolioStore();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navItems = [
-    { label: 'Projects (6 Live)', href: '#projects' },
-    { label: 'Pillars & Skills', href: '#pillars' },
-    { label: 'Telemetry', href: '#telemetry' },
-    { label: 'Frontier AI', href: '#ai-engine' },
-    { label: 'Crypto Lab', href: '#crypto-lab' },
-    { label: 'Contact', href: '#contact' },
+  const navLinks = [
+    { label: 'Overview', to: '/' },
+    { label: 'About', to: '/about' },
+    { label: 'Projects (6 Live)', to: '/projects' },
+    { label: 'Tools & Lab', to: '/tools' },
+    { label: 'Contact', to: '/contact' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-white/10 transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#E8E2D7] transition-all">
+      <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+        
         {/* Brand */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-600/30 border border-cyan-400/40 flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.3)] transition-transform duration-300 group-hover:scale-105 group-hover:rotate-6">
-            <Cpu className="w-5 h-5 text-cyan-400" />
+        <NavLink to="/" className="flex items-center gap-2.5 text-decoration-none group">
+          <div className="w-8 h-8 rounded-[4px] bg-[#111827] text-white flex items-center justify-center font-bold text-xs tracking-wider">
+            MR
           </div>
           <div>
-            <div className="font-extrabold text-base tracking-wider text-white uppercase flex items-center gap-1.5">
-              <span>MUHAMMADISLOM</span>
-              <span className="text-cyan-400 text-xs px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/40">TURON</span>
-            </div>
-            <div className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-              ANTIGRAVITY INNOVATIONS
+            <div className="font-bold text-sm text-[#111827] tracking-tight flex items-center gap-1.5">
+              <span>Muhammadislom R.</span>
+              <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded-[4px] bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">
+                Turon Certified
+              </span>
             </div>
           </div>
-        </a>
+        </NavLink>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors duration-200 relative py-1"
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) =>
+                `transition-colors py-1 ${
+                  isActive
+                    ? 'text-[#D97706] font-semibold border-b-2 border-[#D97706]'
+                    : 'text-[#4B5563] hover:text-[#111827]'
+                }`
+              }
             >
-              {item.label}
-            </a>
+              {link.label}
+            </NavLink>
           ))}
         </nav>
 
-        {/* Actions & Telemetry indicator */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* Action Controls: Phone & Telegram */}
+        <div className="hidden lg:flex items-center gap-2.5">
           <a
-            href="tel:+998503016347"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-xs font-mono text-emerald-400 hover:border-emerald-400 transition-all"
+            href="https://t.me/muhammadislom10"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[5px] bg-[#F3EFEA] border border-[#E8E2D7] text-xs font-mono text-[#374151] hover:bg-[#EAE4DC] hover:text-[#111827] transition-all"
           >
-            <Phone className="w-3.5 h-3.5" />
-            <span>+998 50 301 63 47</span>
+            <Send className="w-3 h-3 text-[#D97706]" />
+            <span>@muhammadislom10</span>
           </a>
 
-          <button
-            onClick={() => setTerminalOpen(!isTerminalOpen)}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-slate-200 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-200"
-            title="Launch Terminal Emulator"
+          <a
+            href="tel:+998503016347"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[5px] bg-[#111827] text-white text-xs font-mono font-medium hover:bg-[#1F2937] transition-all shadow-sm"
+            title="Instant Click to Call Hotline"
           >
-            <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-            <span>CLI_EXEC</span>
-          </button>
+            <Phone className="w-3 h-3 text-[#F59E0B]" />
+            <span>+998 50 301 63 47</span>
+          </a>
         </div>
 
-        {/* Mobile menu trigger */}
+        {/* Mobile Menu Button */}
         <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-slate-300 hover:text-white p-2"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden p-1.5 text-[#374151] hover:text-[#111827]"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-slate-950/95 border-b border-white/10 px-6 py-6 flex flex-col gap-4 animate-in slide-in-from-top-4 duration-200">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-slate-200 hover:text-cyan-400"
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="md:hidden bg-[#FFFFFF] border-b border-[#E8E2D7] px-5 py-4 flex flex-col gap-3">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                `text-sm font-medium py-1.5 ${
+                  isActive ? 'text-[#D97706] font-bold' : 'text-[#4B5563]'
+                }`
+              }
             >
-              {item.label}
-            </a>
+              {link.label}
+            </NavLink>
           ))}
-          <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
+          <div className="pt-3 border-t border-[#E8E2D7] flex flex-col gap-2">
             <a
               href="tel:+998503016347"
-              className="flex items-center justify-center gap-2 py-2 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-sm font-mono"
+              className="inline-flex items-center justify-center gap-2 py-2 rounded-[5px] bg-[#111827] text-white text-xs font-mono font-medium"
             >
-              <Phone className="w-4 h-4" />
-              <span>+998 50 301 63 47</span>
+              <Phone className="w-3.5 h-3.5 text-[#F59E0B]" />
+              <span>Call: +998 50 301 63 47</span>
             </a>
-            <button
-              onClick={() => {
-                setTerminalOpen(true);
-                setMobileMenuOpen(false);
-              }}
-              className="flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-900 border border-cyan-500/40 text-cyan-400 text-sm font-mono"
+            <a
+              href="https://t.me/muhammadislom10"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 py-2 rounded-[5px] bg-[#F3EFEA] border border-[#E8E2D7] text-xs font-mono text-[#374151]"
             >
-              <Terminal className="w-4 h-4" />
-              <span>Launch Terminal CLI</span>
-            </button>
+              <Send className="w-3.5 h-3.5 text-[#D97706]" />
+              <span>Telegram: @muhammadislom10</span>
+            </a>
           </div>
         </div>
       )}

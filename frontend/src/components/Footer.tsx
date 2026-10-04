@@ -1,77 +1,88 @@
 import React from 'react';
-import { Terminal, Shield, Code2, Globe, Phone, Award } from 'lucide-react';
-import { usePortfolioStore } from '../store/useStore';
+import { NavLink } from 'react-router-dom';
+import { Phone, Send, Award, ArrowUpRight } from 'lucide-react';
 
 export const Footer: React.FC = () => {
-  const { setTerminalOpen } = usePortfolioStore();
-
   return (
-    <footer className="border-t border-slate-900 bg-slate-950 py-16 relative z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-slate-800/80">
+    <footer className="border-t border-[#E8E2D7] bg-[#FFFFFF] py-12 text-[#4B5563] text-sm">
+      <div className="max-w-6xl mx-auto px-5">
+        
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-[#E8E2D7]">
           
-          <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-2">
-              <Shield className="w-4 h-4" />
-              <span>ANTIGRAVITY INNOVATIONS PLATFORM</span>
+          {/* Identity */}
+          <div className="md:col-span-2">
+            <div className="font-bold text-[#111827] text-base mb-2">
+              Muhammadislom Rustambekov (Mansurbekovich)
             </div>
-            <div className="text-xl sm:text-2xl font-extrabold text-white">
-              Beyond limits.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
-                Beyond gravity.
+            <p className="text-xs text-[#6B7280] leading-relaxed max-w-sm mb-4">
+              Full-Stack Software Engineer & Telegram Bot Developer. Certified by Turon International Education Center. Dedicated to building reliable, high-performance web applications and automated systems.
+            </p>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] text-xs font-mono">
+              <Award className="w-3.5 h-3.5" />
+              <span>Turon International Education Center Certified</span>
+            </div>
+          </div>
+
+          {/* Quick Page Links */}
+          <div>
+            <div className="font-semibold text-[#111827] text-xs uppercase tracking-wider mb-3">
+              Navigation
+            </div>
+            <div className="flex flex-col gap-2 text-xs">
+              <NavLink to="/" className="hover:text-[#111827] transition-colors">Overview</NavLink>
+              <NavLink to="/about" className="hover:text-[#111827] transition-colors">About Developer</NavLink>
+              <NavLink to="/projects" className="hover:text-[#111827] transition-colors">Live Projects (6)</NavLink>
+              <NavLink to="/tools" className="hover:text-[#111827] transition-colors">Utility Lab</NavLink>
+              <NavLink to="/contact" className="hover:text-[#111827] transition-colors">Contact & Ordering</NavLink>
+            </div>
+          </div>
+
+          {/* Direct Channels */}
+          <div>
+            <div className="font-semibold text-[#111827] text-xs uppercase tracking-wider mb-3">
+              Direct Contact
+            </div>
+            <div className="flex flex-col gap-2 text-xs font-mono">
+              <a
+                href="tel:+998503016347"
+                className="flex items-center gap-1.5 text-[#111827] font-semibold hover:text-[#D97706] transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-[#D97706]" />
+                <span>+998 50 301 63 47</span>
+              </a>
+              <a
+                href="https://t.me/muhammadislom10"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 hover:text-[#111827] transition-colors"
+              >
+                <Send className="w-3.5 h-3.5 text-[#D97706]" />
+                <span>@muhammadislom10</span>
+                <ArrowUpRight className="w-3 h-3 text-[#9CA3AF]" />
+              </a>
+              <span className="text-[#6B7280] text-[11px] mt-1">
+                Tashkent / Worldwide Ingress
               </span>
             </div>
-            <p className="text-sm text-slate-400 mt-1">
-              Official Portfolio of Rustambekov Muhammadislom Mansurbekovich
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <a
-              href="tel:+998503016347"
-              className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-colors"
-              title="Call Muhammadislom (+998 50 301 63 47)"
-            >
-              <Phone className="w-5 h-5" />
-            </a>
-            <button
-              onClick={() => setTerminalOpen(true)}
-              className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
-              title="Open Terminal"
-            >
-              <Terminal className="w-5 h-5" />
-            </button>
-            <a
-              href="https://github.com/Muhammadislom08"
-              target="_blank"
-              rel="noreferrer"
-              className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
-              title="GitHub Profile"
-            >
-              <Code2 className="w-5 h-5" />
-            </a>
-            <a
-              href="#projects"
-              className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
-              title="Featured 6 Live Apps"
-            >
-              <Globe className="w-5 h-5" />
-            </a>
           </div>
 
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-slate-400 gap-4">
-          <div className="flex items-center gap-2">
-            <Award className="w-4 h-4 text-cyan-400" />
-            <span>Certified by Turon International Education Center</span>
+        {/* Bottom Bar */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-[#6B7280] gap-4">
+          <div>
+            © {new Date().getFullYear()} Muhammadislom Rustambekov. All rights reserved.
           </div>
-          <div className="flex items-center gap-6">
-            <span>React 19 + TypeScript</span>
+          <div className="flex items-center gap-4 text-xs font-mono">
+            <span>React 19</span>
+            <span>•</span>
             <span>Python FastAPI</span>
-            <span>Telegram Bot Architecture</span>
+            <span>•</span>
+            <span>Turon Accredited</span>
           </div>
         </div>
+
       </div>
     </footer>
   );
