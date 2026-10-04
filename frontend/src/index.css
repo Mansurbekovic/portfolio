@@ -15,17 +15,17 @@
 }
 
 .theme-dark {
-  --bg-warm: #0C0F17;
-  --bg-surface: #141926;
-  --bg-muted: #1B2234;
-  --border-subtle: #252E44;
+  --bg-warm: #0A0D14;
+  --bg-surface: #111726;
+  --bg-muted: #1A2234;
+  --border-subtle: #242E44;
   --border-strong: #384666;
-  --text-primary: #F9FAFB;
-  --text-secondary: #D1D5DB;
-  --text-muted: #9CA3AF;
-  --accent-amber: #F59E0B;
-  --accent-amber-light: rgba(245, 158, 11, 0.15);
-  --accent-amber-hover: #D97706;
+  --text-primary: #FFFFFF; /* Pure milky white */
+  --text-secondary: #E2E8F0; /* Soft milky white-slate */
+  --text-muted: #94A3B8; /* Readable secondary text */
+  --accent-amber: #FACC15; /* Soft milky yellow / light gold */
+  --accent-amber-light: rgba(250, 204, 21, 0.16);
+  --accent-amber-hover: #FDE047;
 }
 
 * {

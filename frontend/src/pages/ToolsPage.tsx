@@ -15,8 +15,11 @@ import {
   Palette,
   Sparkles
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ToolsPage: React.FC = () => {
+  const { t } = useLanguage();
+
   // 1. Password Generator State
   const [passLength, setPassLength] = useState(16);
   const [includeUpper, setIncludeUpper] = useState(true);
@@ -55,7 +58,6 @@ export const ToolsPage: React.FC = () => {
   const [fromCurrency, setFromCurrency] = useState<'USD' | 'EUR' | 'UZS' | 'BTC' | 'ETH'>('USD');
   const [toCurrency, setToCurrency] = useState<'USD' | 'EUR' | 'UZS' | 'BTC' | 'ETH'>('UZS');
 
-  // Realistic exchange rates relative to 1 USD
   const ratesToUSD: Record<string, number> = {
     USD: 1,
     EUR: 1.08,
@@ -78,14 +80,14 @@ export const ToolsPage: React.FC = () => {
 
   // 3. JSON Formatter & Validator State
   const [jsonInput, setJsonInput] = useState('{\n  "developer": "Muhammadislom",\n  "status": "active",\n  "projects": 6\n}');
-  const [jsonStatus, setJsonStatus] = useState<{ valid: boolean; message: string } | null>({ valid: true, message: 'Valid JSON' });
+  const [jsonStatus, setJsonStatus] = useState<{ valid: boolean; message: string } | null>({ valid: true, message: t.toolJsonValid });
   const [copiedJson, setCopiedJson] = useState(false);
 
   const formatJson = () => {
     try {
       const parsed = JSON.parse(jsonInput);
       setJsonInput(JSON.stringify(parsed, null, 2));
-      setJsonStatus({ valid: true, message: 'JSON successfully formatted and valid.' });
+      setJsonStatus({ valid: true, message: t.toolJsonValid });
     } catch (err: any) {
       setJsonStatus({ valid: false, message: `Syntax Error: ${err.message}` });
     }
@@ -135,24 +137,18 @@ export const ToolsPage: React.FC = () => {
     const trimmed = statsText.trim();
     const words = trimmed ? trimmed.split(/\s+/).length : 0;
     const sentences = trimmed ? (trimmed.match(/[^.!?]+[.!?]+(\s|$)/g) || [trimmed]).length : 0;
-    const paragraphs = trimmed ? trimmed.split(/\n+/).filter(Boolean).length : 0;
 
-    // Reading time: avg 200 words per minute
-    const readMinutes = Math.ceil((words / 200) * 60); // in seconds
-    const readTimeFormatted =
-      readMinutes < 60 ? `${readMinutes}s read` : `${Math.ceil(readMinutes / 60)} min read`;
+    const readMinutes = Math.ceil((words / 200) * 60);
+    const readTimeFormatted = readMinutes < 60 ? `${readMinutes}s` : `${Math.ceil(readMinutes / 60)} min`;
 
-    // Speaking time: avg 130 words per minute
-    const speakMinutes = Math.ceil((words / 130) * 60); // in seconds
-    const speakTimeFormatted =
-      speakMinutes < 60 ? `${speakMinutes}s speech` : `${Math.ceil(speakMinutes / 60)} min speech`;
+    const speakMinutes = Math.ceil((words / 130) * 60);
+    const speakTimeFormatted = speakMinutes < 60 ? `${speakMinutes}s` : `${Math.ceil(speakMinutes / 60)} min`;
 
     return {
       charsWithSpaces,
       charsWithoutSpaces,
       words,
       sentences,
-      paragraphs,
       readTimeFormatted,
       speakTimeFormatted
     };
@@ -173,10 +169,10 @@ export const ToolsPage: React.FC = () => {
   };
 
   const themeStyles = {
-    charcoal: { bg: 'bg-[#111827]', border: 'border-[#1F2937]', text: 'text-[#F9FAFB]', dot: 'bg-[#4B5563]' },
-    slate: { bg: 'bg-[#0F172A]', border: 'border-[#1E293B]', text: 'text-[#38BDF8]', dot: 'bg-[#334155]' },
-    cyber: { bg: 'bg-[#022C22]', border: 'border-[#064E3B]', text: 'text-[#34D399]', dot: 'bg-[#065F46]' },
-    amber: { bg: 'bg-[#291804]', border: 'border-[#78350F]', text: 'text-[#FCD34D]', dot: 'bg-[#B45309]' }
+    charcoal: { bg: 'bg-[#111827]', border: 'border-[#1F2937]', text: 'text-[#F9FAFB]' },
+    slate: { bg: 'bg-[#0F172A]', border: 'border-[#1E293B]', text: 'text-[#38BDF8]' },
+    cyber: { bg: 'bg-[#022C22]', border: 'border-[#064E3B]', text: 'text-[#34D399]' },
+    amber: { bg: 'bg-[#291804]', border: 'border-[#78350F]', text: 'text-[#FDE047]' }
   };
 
   return (
@@ -184,57 +180,57 @@ export const ToolsPage: React.FC = () => {
       <div className="max-w-6xl mx-auto px-5">
         
         {/* Header */}
-        <div className="border-b border-[#E8E2D7] pb-8 mb-10">
-          <div className="text-xs font-mono font-semibold text-[#D97706] uppercase tracking-wider mb-2">
-            Interactive Utilities
+        <div className="border-b border-[var(--border-subtle)] pb-8 mb-10">
+          <div className="text-xs font-mono font-semibold text-[var(--accent-amber)] uppercase tracking-wider mb-2">
+            {t.toolsHeaderBadge}
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111827] tracking-tight mb-4">
-            Developer & Visitor Utility Lab
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight mb-4">
+            {t.toolsHeaderTitle}
           </h1>
-          <p className="text-base text-[#4B5563] leading-relaxed max-w-2xl">
-            A collection of real-world, 100% operational web utilities built directly into this portfolio. Generate cryptographically strong secrets, convert currencies, and validate data.
+          <p className="text-base text-[var(--text-secondary)] leading-relaxed max-w-2xl">
+            {t.toolsHeaderSubtitle}
           </p>
         </div>
 
-        {/* 2x2 Grid of Operational Tools */}
+        {/* 2x3 Grid of Operational Tools */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Tool 1: Password & Secret Generator */}
           <div className="minimal-card p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#E8E2D7]">
+              <div className="flex items-center justify-between pb-4 mb-5 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[var(--accent-amber)] flex items-center justify-center">
                     <Lock className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#111827]">Secure Password Generator</h3>
-                    <p className="text-[11px] text-[#6B7280]">CSPRNG Entropy Generator</p>
+                    <h3 className="font-bold text-sm text-[var(--text-primary)]">{t.toolPassTitle}</h3>
+                    <p className="text-[11px] text-[var(--text-muted)]">{t.toolPassSubtitle}</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-[4px] bg-[#F3EFEA] text-[#4B5563]">
-                  {passLength * 5} bits entropy
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-[4px] bg-[var(--bg-muted)] text-[var(--text-muted)] border border-[var(--border-subtle)]">
+                  {passLength * 5} {t.toolPassEntropy}
                 </span>
               </div>
 
               {/* Display Result */}
-              <div className="p-3 rounded-[5px] bg-[#F9FAFB] border border-[#E5E7EB] font-mono text-sm text-[#111827] break-all flex items-center justify-between mb-5">
-                <span className="select-all">{generatedPass}</span>
+              <div className="p-3 rounded-[5px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] font-mono text-sm text-[var(--text-primary)] break-all flex items-center justify-between mb-5">
+                <span className="select-all font-semibold">{generatedPass}</span>
                 <button
                   type="button"
                   onClick={copyPassword}
-                  className="text-xs text-[#D97706] hover:text-[#B45309] flex items-center gap-1 font-mono shrink-0 ml-2"
+                  className="text-xs text-[var(--accent-amber)] hover:opacity-80 flex items-center gap-1 font-mono shrink-0 ml-2 cursor-pointer"
                 >
-                  {copiedPass ? <Check className="w-3.5 h-3.5 text-[#059669]" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedPass ? 'Copied' : 'Copy'}</span>
+                  {copiedPass ? <Check className="w-3.5 h-3.5 text-[#10B981]" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedPass ? t.toolCopied : t.toolCopy}</span>
                 </button>
               </div>
 
               {/* Controls */}
               <div className="space-y-4 text-xs">
                 <div>
-                  <div className="flex justify-between text-[#4B5563] mb-1 font-mono">
-                    <span>Length: {passLength} characters</span>
+                  <div className="flex justify-between text-[var(--text-secondary)] mb-1 font-mono">
+                    <span>{t.toolPassLength}: {passLength}</span>
                   </div>
                   <input
                     type="range"
@@ -242,59 +238,59 @@ export const ToolsPage: React.FC = () => {
                     max="64"
                     value={passLength}
                     onChange={(e) => setPassLength(Number(e.target.value))}
-                    className="w-full accent-[#D97706]"
+                    className="w-full accent-[var(--accent-amber)] cursor-pointer"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-[#4B5563]">
+                <div className="grid grid-cols-2 gap-2 text-[var(--text-secondary)] font-mono">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={includeUpper}
                       onChange={(e) => setIncludeUpper(e.target.checked)}
-                      className="accent-[#D97706]"
+                      className="accent-[var(--accent-amber)]"
                     />
-                    <span>Uppercase (A-Z)</span>
+                    <span>{t.toolPassUpper}</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={includeLower}
                       onChange={(e) => setIncludeLower(e.target.checked)}
-                      className="accent-[#D97706]"
+                      className="accent-[var(--accent-amber)]"
                     />
-                    <span>Lowercase (a-z)</span>
+                    <span>{t.toolPassLower}</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={includeNumbers}
                       onChange={(e) => setIncludeNumbers(e.target.checked)}
-                      className="accent-[#D97706]"
+                      className="accent-[var(--accent-amber)]"
                     />
-                    <span>Numbers (0-9)</span>
+                    <span>{t.toolPassNumbers}</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={includeSymbols}
                       onChange={(e) => setIncludeSymbols(e.target.checked)}
-                      className="accent-[#D97706]"
+                      className="accent-[var(--accent-amber)]"
                     />
-                    <span>Symbols (!@#$)</span>
+                    <span>{t.toolPassSymbols}</span>
                   </label>
                 </div>
               </div>
             </div>
 
-            <div className="pt-5 mt-5 border-t border-[#F3EFEA]">
+            <div className="pt-5 mt-5 border-t border-[var(--border-subtle)]">
               <button
                 type="button"
                 onClick={generatePassword}
-                className="w-full btn-primary text-xs py-2"
+                className="w-full btn-primary text-xs py-2 cursor-pointer"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
-                <span>Generate New Secret</span>
+                <span>{t.toolPassGenerateBtn}</span>
               </button>
             </div>
           </div>
@@ -302,40 +298,40 @@ export const ToolsPage: React.FC = () => {
           {/* Tool 2: Currency & Crypto Converter */}
           <div className="minimal-card p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#E8E2D7]">
+              <div className="flex items-center justify-between pb-4 mb-5 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[var(--accent-amber)] flex items-center justify-center">
                     <Coins className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#111827]">Currency & Crypto Calculator</h3>
-                    <p className="text-[11px] text-[#6B7280]">Instant Valuation Engine</p>
+                    <h3 className="font-bold text-sm text-[var(--text-primary)]">{t.toolCurrTitle}</h3>
+                    <p className="text-[11px] text-[var(--text-muted)]">{t.toolCurrSubtitle}</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-[4px] bg-[#FEF3C7] text-[#92400E]">
-                  Live Formulas
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[#92400E] dark:text-[var(--accent-amber)]">
+                  {t.toolCurrBadge}
                 </span>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-mono text-[#4B5563] mb-1">Amount to Convert</label>
+                  <label className="block text-xs font-mono text-[var(--text-secondary)] mb-1">{t.toolCurrAmount}</label>
                   <input
                     type="number"
                     value={amount}
                     onChange={(e) => setAmount(Number(e.target.value))}
                     min="0"
-                    className="w-full p-2.5 rounded-[5px] bg-[#F9FAFB] border border-[#E5E7EB] text-sm font-mono text-[#111827] focus:outline-none focus:border-[#D97706]"
+                    className="w-full p-2.5 rounded-[5px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-sm font-mono text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-amber)]"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-mono text-[#4B5563] mb-1">From</label>
+                    <label className="block text-xs font-mono text-[var(--text-secondary)] mb-1">{t.toolCurrFrom}</label>
                     <select
                       value={fromCurrency}
                       onChange={(e) => setFromCurrency(e.target.value as any)}
-                      className="w-full p-2 rounded-[5px] bg-[#FFFFFF] border border-[#E5E7EB] text-xs font-mono text-[#111827] focus:outline-none focus:border-[#D97706]"
+                      className="w-full p-2 rounded-[5px] bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-amber)]"
                     >
                       <option value="USD">USD ($)</option>
                       <option value="EUR">EUR (€)</option>
@@ -346,11 +342,11 @@ export const ToolsPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-[#4B5563] mb-1">To</label>
+                    <label className="block text-xs font-mono text-[var(--text-secondary)] mb-1">{t.toolCurrTo}</label>
                     <select
                       value={toCurrency}
                       onChange={(e) => setToCurrency(e.target.value as any)}
-                      className="w-full p-2 rounded-[5px] bg-[#FFFFFF] border border-[#E5E7EB] text-xs font-mono text-[#111827] focus:outline-none focus:border-[#D97706]"
+                      className="w-full p-2 rounded-[5px] bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-amber)]"
                     >
                       <option value="UZS">UZS (So'm)</option>
                       <option value="USD">USD ($)</option>
@@ -362,42 +358,42 @@ export const ToolsPage: React.FC = () => {
                 </div>
 
                 {/* Result Card */}
-                <div className="p-4 rounded-[5px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
-                  <div className="text-xs text-[#6B7280] font-mono mb-1">
+                <div className="p-4 rounded-[5px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-center">
+                  <div className="text-xs text-[var(--text-muted)] font-mono mb-1">
                     {amount.toLocaleString()} {fromCurrency} =
                   </div>
-                  <div className="text-2xl font-extrabold text-[#111827] font-mono">
-                    {calculateConversion()} <span className="text-sm font-semibold text-[#D97706]">{toCurrency}</span>
+                  <div className="text-2xl font-extrabold text-[var(--text-primary)] font-mono">
+                    {calculateConversion()} <span className="text-sm font-semibold text-[var(--accent-amber)]">{toCurrency}</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 text-[11px] text-[#9CA3AF] text-center font-mono">
-              Formula based on global weighted averages.
+            <div className="pt-4 text-[11px] text-[var(--text-muted)] text-center font-mono">
+              {t.toolCurrNote}
             </div>
           </div>
 
           {/* Tool 3: JSON Formatter & Validator */}
           <div className="minimal-card p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E8E2D7]">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[var(--accent-amber)] flex items-center justify-center">
                     <FileCode className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#111827]">JSON Formatter & Validator</h3>
-                    <p className="text-[11px] text-[#6B7280]">Syntax Analyzer</p>
+                    <h3 className="font-bold text-sm text-[var(--text-primary)]">{t.toolJsonTitle}</h3>
+                    <p className="text-[11px] text-[var(--text-muted)]">{t.toolJsonSubtitle}</p>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={copyJson}
-                  className="text-xs text-[#D97706] hover:text-[#B45309] flex items-center gap-1 font-mono"
+                  className="text-xs text-[var(--accent-amber)] hover:opacity-80 flex items-center gap-1 font-mono cursor-pointer"
                 >
-                  {copiedJson ? <Check className="w-3 h-3 text-[#059669]" /> : <Copy className="w-3 h-3" />}
-                  <span>{copiedJson ? 'Copied' : 'Copy'}</span>
+                  {copiedJson ? <Check className="w-3 h-3 text-[#10B981]" /> : <Copy className="w-3 h-3" />}
+                  <span>{copiedJson ? t.toolCopied : t.toolCopy}</span>
                 </button>
               </div>
 
@@ -405,11 +401,11 @@ export const ToolsPage: React.FC = () => {
                 value={jsonInput}
                 onChange={(e) => setJsonInput(e.target.value)}
                 rows={6}
-                className="w-full p-3 rounded-[5px] bg-[#F9FAFB] border border-[#E5E7EB] font-mono text-xs text-[#111827] focus:outline-none focus:border-[#D97706]"
+                className="w-full p-3 rounded-[5px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] font-mono text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-amber)]"
               />
 
               {jsonStatus && (
-                <div className={`mt-2 flex items-center gap-1.5 text-xs font-mono ${jsonStatus.valid ? 'text-[#059669]' : 'text-[#DC2626]'}`}>
+                <div className={`mt-2 flex items-center gap-1.5 text-xs font-mono ${jsonStatus.valid ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                   {jsonStatus.valid ? <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> : <AlertCircle className="w-3.5 h-3.5 shrink-0" />}
                   <span>{jsonStatus.message}</span>
                 </div>
@@ -420,16 +416,16 @@ export const ToolsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={formatJson}
-                className="flex-1 btn-primary text-xs py-2"
+                className="flex-1 btn-primary text-xs py-2 cursor-pointer"
               >
-                Format / Beautify
+                {t.toolJsonFormatBtn}
               </button>
               <button
                 type="button"
                 onClick={minifyJson}
-                className="flex-1 btn-outline text-xs py-2"
+                className="flex-1 btn-outline text-xs py-2 cursor-pointer"
               >
-                Minify Compact
+                {t.toolJsonMinifyBtn}
               </button>
             </div>
           </div>
@@ -437,51 +433,51 @@ export const ToolsPage: React.FC = () => {
           {/* Tool 4: Base64 Encoder / Decoder */}
           <div className="minimal-card p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E8E2D7]">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[var(--accent-amber)] flex items-center justify-center">
                     <Binary className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#111827]">Base64 Encode / Decode</h3>
-                    <p className="text-[11px] text-[#6B7280]">Binary & String Transformer</p>
+                    <h3 className="font-bold text-sm text-[var(--text-primary)]">{t.toolB64Title}</h3>
+                    <p className="text-[11px] text-[var(--text-muted)]">{t.toolB64Subtitle}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 bg-[#F3EFEA] p-0.5 rounded-[4px] text-xs font-mono">
+                <div className="flex items-center gap-1 bg-[var(--bg-muted)] p-0.5 rounded-[4px] text-xs font-mono">
                   <button
                     type="button"
                     onClick={() => setB64Mode('encode')}
-                    className={`px-2 py-0.5 rounded-[3px] ${b64Mode === 'encode' ? 'bg-[#FFFFFF] text-[#111827] font-bold shadow-xs' : 'text-[#6B7280]'}`}
+                    className={`px-2 py-0.5 rounded-[3px] cursor-pointer ${b64Mode === 'encode' ? 'bg-[var(--accent-amber)] text-[#111827] font-bold shadow-xs' : 'text-[var(--text-muted)]'}`}
                   >
-                    Encode
+                    {t.toolB64Encode}
                   </button>
                   <button
                     type="button"
                     onClick={() => setB64Mode('decode')}
-                    className={`px-2 py-0.5 rounded-[3px] ${b64Mode === 'decode' ? 'bg-[#FFFFFF] text-[#111827] font-bold shadow-xs' : 'text-[#6B7280]'}`}
+                    className={`px-2 py-0.5 rounded-[3px] cursor-pointer ${b64Mode === 'decode' ? 'bg-[var(--accent-amber)] text-[#111827] font-bold shadow-xs' : 'text-[var(--text-muted)]'}`}
                   >
-                    Decode
+                    {t.toolB64Decode}
                   </button>
                 </div>
               </div>
 
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-mono text-[#4B5563] mb-1">
-                    Input String ({b64Mode === 'encode' ? 'Plaintext' : 'Base64'})
+                  <label className="block text-xs font-mono text-[var(--text-secondary)] mb-1">
+                    {t.toolB64Input}
                   </label>
                   <input
                     type="text"
                     value={b64Input}
                     onChange={(e) => setB64Input(e.target.value)}
-                    className="w-full p-2.5 rounded-[5px] bg-[#F9FAFB] border border-[#E5E7EB] text-xs font-mono text-[#111827] focus:outline-none focus:border-[#D97706]"
+                    className="w-full p-2.5 rounded-[5px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-amber)]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-[#4B5563] mb-1">Output Result</label>
-                  <div className="p-2.5 rounded-[5px] bg-[#F9FAFB] border border-[#E5E7EB] text-xs font-mono text-[#111827] break-all min-h-[38px] flex items-center">
+                  <label className="block text-xs font-mono text-[var(--text-secondary)] mb-1">{t.toolB64Output}</label>
+                  <div className="p-2.5 rounded-[5px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] break-all min-h-[38px] flex items-center font-bold">
                     {b64Output}
                   </div>
                 </div>
@@ -492,9 +488,9 @@ export const ToolsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleB64Convert}
-                className="w-full btn-primary text-xs py-2"
+                className="w-full btn-primary text-xs py-2 cursor-pointer"
               >
-                Execute Conversion
+                {t.toolB64ConvertBtn}
               </button>
             </div>
           </div>
@@ -502,63 +498,63 @@ export const ToolsPage: React.FC = () => {
           {/* Tool 5: Text Statistics & Readability Analyzer */}
           <div className="minimal-card p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E8E2D7]">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[var(--accent-amber)] flex items-center justify-center">
                     <Type className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#111827]">Text Statistics & Reading Time</h3>
-                    <p className="text-[11px] text-[#6B7280]">Content & Speech Analyzer</p>
+                    <h3 className="font-bold text-sm text-[var(--text-primary)]">{t.toolStatsTitle}</h3>
+                    <p className="text-[11px] text-[var(--text-muted)]">{t.toolStatsSubtitle}</p>
                   </div>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => setStatsText('')}
-                  className="text-xs text-[#9CA3AF] hover:text-[#DC2626] font-mono transition-colors"
+                  className="text-xs text-[var(--text-muted)] hover:text-[#EF4444] font-mono transition-colors cursor-pointer"
                 >
-                  Clear
+                  {t.toolStatsClear}
                 </button>
               </div>
 
               <textarea
                 value={statsText}
                 onChange={(e) => setStatsText(e.target.value)}
-                placeholder="Type or paste your text here to compute statistics..."
+                placeholder={t.toolStatsPlaceholder}
                 rows={4}
-                className="w-full p-3 rounded-[5px] bg-[#F9FAFB] border border-[#E5E7EB] font-sans text-xs text-[#111827] focus:outline-none focus:border-[#D97706]"
+                className="w-full p-3 rounded-[5px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] font-sans text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-amber)]"
               />
 
               {/* Statistics Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4">
-                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
-                  <div className="text-[10px] font-mono text-[#6B7280]">Words</div>
-                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.words}</div>
+                <div className="p-2.5 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-center">
+                  <div className="text-[10px] font-mono text-[var(--text-muted)]">{t.toolStatsWords}</div>
+                  <div className="text-base font-extrabold text-[var(--text-primary)] font-mono mt-0.5">{textMetrics.words}</div>
                 </div>
-                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
-                  <div className="text-[10px] font-mono text-[#6B7280]">Characters</div>
-                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.charsWithSpaces}</div>
+                <div className="p-2.5 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-center">
+                  <div className="text-[10px] font-mono text-[var(--text-muted)]">{t.toolStatsChars}</div>
+                  <div className="text-base font-extrabold text-[var(--text-primary)] font-mono mt-0.5">{textMetrics.charsWithSpaces}</div>
                 </div>
-                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
-                  <div className="text-[10px] font-mono text-[#6B7280]">No Spaces</div>
-                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.charsWithoutSpaces}</div>
+                <div className="p-2.5 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-center">
+                  <div className="text-[10px] font-mono text-[var(--text-muted)]">{t.toolStatsNoSpaces}</div>
+                  <div className="text-base font-extrabold text-[var(--text-primary)] font-mono mt-0.5">{textMetrics.charsWithoutSpaces}</div>
                 </div>
-                <div className="p-2.5 rounded-[4px] bg-[#F9FAFB] border border-[#E8E2D7] text-center">
-                  <div className="text-[10px] font-mono text-[#6B7280]">Sentences</div>
-                  <div className="text-base font-extrabold text-[#111827] font-mono mt-0.5">{textMetrics.sentences}</div>
+                <div className="p-2.5 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-center">
+                  <div className="text-[10px] font-mono text-[var(--text-muted)]">{t.toolStatsSentences}</div>
+                  <div className="text-base font-extrabold text-[var(--text-primary)] font-mono mt-0.5">{textMetrics.sentences}</div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 mt-4 border-t border-[#F3EFEA] grid grid-cols-2 gap-3 text-xs font-mono">
-              <div className="flex items-center gap-2 p-2 rounded-[4px] bg-[#FEF3C7] text-[#92400E]">
-                <Clock className="w-3.5 h-3.5 text-[#D97706] shrink-0" />
-                <span className="truncate">Reading: {textMetrics.readTimeFormatted}</span>
+            <div className="pt-4 mt-4 border-t border-[var(--border-subtle)] grid grid-cols-2 gap-3 text-xs font-mono">
+              <div className="flex items-center gap-2 p-2 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[#92400E] dark:text-[var(--accent-amber)]">
+                <Clock className="w-3.5 h-3.5 text-[var(--accent-amber)] shrink-0" />
+                <span className="truncate">{t.toolStatsReading}: {textMetrics.readTimeFormatted}</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-[4px] bg-[#F3EFEA] text-[#374151]">
-                <Mic className="w-3.5 h-3.5 text-[#6B7280] shrink-0" />
-                <span className="truncate">Speech: {textMetrics.speakTimeFormatted}</span>
+              <div className="flex items-center gap-2 p-2 rounded-[4px] bg-[var(--bg-muted)] text-[var(--text-primary)]">
+                <Mic className="w-3.5 h-3.5 text-[var(--accent-amber)] shrink-0" />
+                <span className="truncate">{t.toolStatsSpeech}: {textMetrics.speakTimeFormatted}</span>
               </div>
             </div>
           </div>
@@ -566,14 +562,14 @@ export const ToolsPage: React.FC = () => {
           {/* Tool 6: Code Snippet Card Generator */}
           <div className="minimal-card p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#E8E2D7]">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] text-[#D97706] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[var(--accent-amber)] flex items-center justify-center">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#111827]">Code Snippet Card Generator</h3>
-                    <p className="text-[11px] text-[#6B7280]">Syntax Presenter</p>
+                    <h3 className="font-bold text-sm text-[var(--text-primary)]">{t.toolSnippetTitle}</h3>
+                    <p className="text-[11px] text-[var(--text-muted)]">{t.toolSnippetSubtitle}</p>
                   </div>
                 </div>
 
@@ -581,7 +577,7 @@ export const ToolsPage: React.FC = () => {
                   <select
                     value={snippetLang}
                     onChange={(e) => setSnippetLang(e.target.value)}
-                    className="p-1 rounded-[3px] bg-[#FFFFFF] border border-[#E5E7EB] text-[11px] font-mono text-[#111827]"
+                    className="p-1 rounded-[3px] bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-primary)] cursor-pointer"
                   >
                     <option value="python">Python</option>
                     <option value="typescript">TypeScript</option>
@@ -593,30 +589,30 @@ export const ToolsPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={copySnippet}
-                    className="text-xs text-[#D97706] hover:text-[#B45309] flex items-center gap-1 font-mono"
+                    className="text-xs text-[var(--accent-amber)] hover:opacity-80 flex items-center gap-1 font-mono cursor-pointer"
                   >
-                    {copiedSnippet ? <Check className="w-3 h-3 text-[#059669]" /> : <Copy className="w-3 h-3" />}
-                    <span>{copiedSnippet ? 'Copied' : 'Copy'}</span>
+                    {copiedSnippet ? <Check className="w-3 h-3 text-[#10B981]" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedSnippet ? t.toolCopied : t.toolCopy}</span>
                   </button>
                 </div>
               </div>
 
               {/* Theme Picker */}
-              <div className="flex items-center gap-2 mb-3 text-xs font-mono text-[#4B5563]">
-                <Palette className="w-3.5 h-3.5 text-[#6B7280]" />
-                <span className="text-[11px]">Theme:</span>
-                {(['charcoal', 'slate', 'cyber', 'amber'] as const).map((t) => (
+              <div className="flex items-center gap-2 mb-3 text-xs font-mono text-[var(--text-secondary)]">
+                <Palette className="w-3.5 h-3.5 text-[var(--text-muted)]" />
+                <span className="text-[11px]">{t.toolSnippetTheme}</span>
+                {(['charcoal', 'slate', 'cyber', 'amber'] as const).map((themeName) => (
                   <button
-                    key={t}
+                    key={themeName}
                     type="button"
-                    onClick={() => setSnippetTheme(t)}
-                    className={`px-2 py-0.5 rounded-[3px] text-[10px] uppercase font-bold transition-all ${
-                      snippetTheme === t
-                        ? 'bg-[#111827] text-white'
-                        : 'bg-[#F3EFEA] text-[#6B7280] hover:text-[#111827]'
+                    onClick={() => setSnippetTheme(themeName)}
+                    className={`px-2 py-0.5 rounded-[3px] text-[10px] uppercase font-bold transition-all cursor-pointer ${
+                      snippetTheme === themeName
+                        ? 'bg-[var(--accent-amber)] text-[#111827]'
+                        : 'bg-[var(--bg-muted)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                     }`}
                   >
-                    {t}
+                    {themeName}
                   </button>
                 ))}
               </div>
@@ -640,14 +636,14 @@ export const ToolsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 mt-4 border-t border-[#F3EFEA] flex justify-between items-center text-[11px] font-mono text-[#6B7280]">
-              <span>Ready for documentation or sharing</span>
+            <div className="pt-4 mt-4 border-t border-[var(--border-subtle)] flex justify-between items-center text-[11px] font-mono text-[var(--text-muted)]">
+              <span>{t.toolSnippetFooter}</span>
               <button
                 type="button"
                 onClick={copySnippet}
-                className="btn-primary text-xs py-1.5 px-3"
+                className="btn-primary text-xs py-1.5 px-3 cursor-pointer"
               >
-                Copy Code
+                {t.toolSnippetCopyBtn}
               </button>
             </div>
           </div>

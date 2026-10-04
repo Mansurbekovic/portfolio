@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Printer, Phone, Send, Mail } from 'lucide-react';
-import { LIVE_PROJECTS } from '../data/projectsData';
+import { getProjects } from '../data/projectsData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -8,6 +9,9 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
+  const { language, t } = useLanguage();
+  const projects = getProjects(language);
+
   if (!isOpen) return null;
 
   const handlePrint = () => {
@@ -16,25 +20,25 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto no-print">
-      <div className="relative w-full max-w-3xl rounded-[6px] bg-[#FFFFFF] border border-[#D5CBBF] shadow-2xl p-6 sm:p-10 my-8 text-[#111827] max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-3xl rounded-[6px] bg-[var(--bg-surface)] border border-[var(--border-strong)] shadow-2xl p-6 sm:p-10 my-8 text-[var(--text-primary)] max-h-[90vh] overflow-y-auto transition-colors">
         
         {/* Modal Controls */}
-        <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#E8E2D7]">
+        <div className="flex items-center justify-between pb-4 mb-6 border-b border-[var(--border-subtle)]">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-bold text-[#D97706] uppercase">Professional Resume Preview</span>
+            <span className="text-xs font-mono font-bold text-[var(--accent-amber)] uppercase">{t.resumeModalTitle}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#111827] text-white text-xs font-medium hover:bg-[#1F2937] transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#111827] dark:bg-[var(--accent-amber)] text-white dark:text-[#111827] text-xs font-medium hover:opacity-90 transition-all cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>Download PDF / Print</span>
+              <span>{t.resumePrintBtn}</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 text-[#6B7280] hover:text-[#111827] transition-colors"
+              className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -45,25 +49,25 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         <div className="space-y-6">
           
           {/* Header */}
-          <div className="border-b border-[#E8E2D7] pb-6">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#111827]">
+          <div className="border-b border-[var(--border-subtle)] pb-6">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]">
               Muhammadislom Rustambekov
             </h1>
-            <p className="text-sm font-semibold text-[#D97706] mt-1">
-              Full-Stack Software Engineer & Telegram Bot Developer
+            <p className="text-sm font-semibold text-[var(--accent-amber)] mt-1">
+              {t.roleTitle}
             </p>
 
-            <div className="mt-4 flex flex-wrap gap-4 text-xs font-mono text-[#4B5563]">
+            <div className="mt-4 flex flex-wrap gap-4 text-xs font-mono text-[var(--text-secondary)]">
               <span className="flex items-center gap-1">
-                <Phone className="w-3.5 h-3.5 text-[#D97706]" />
+                <Phone className="w-3.5 h-3.5 text-[var(--accent-amber)]" />
                 +998 50 301 63 47
               </span>
               <span className="flex items-center gap-1">
-                <Send className="w-3.5 h-3.5 text-[#D97706]" />
+                <Send className="w-3.5 h-3.5 text-[var(--accent-amber)]" />
                 @muhammadislom10
               </span>
               <span className="flex items-center gap-1">
-                <Mail className="w-3.5 h-3.5 text-[#D97706]" />
+                <Mail className="w-3.5 h-3.5 text-[var(--accent-amber)]" />
                 muhammadislom@antigravity.innovations
               </span>
             </div>
@@ -71,64 +75,66 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
           {/* Education & Certification */}
           <div>
-            <h2 className="text-xs font-mono font-bold text-[#6B7280] uppercase tracking-wider mb-2">
-              Education & Accreditation
+            <h2 className="text-xs font-mono font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              {t.resumeEduHeading}
             </h2>
-            <div className="p-3.5 rounded-[4px] bg-[#FEF3C7] border border-[#FDE68A] text-xs">
-              <div className="flex items-center justify-between font-bold text-[#92400E]">
-                <span>Certified Full-Stack Software Developer</span>
+            <div className="p-3.5 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] border border-[#FDE68A] dark:border-[var(--accent-amber)] text-xs">
+              <div className="flex items-center justify-between font-bold text-[#92400E] dark:text-[var(--accent-amber)]">
+                <span>{t.diplomaMajor}</span>
                 <span>Turon International Education Center</span>
               </div>
-              <p className="text-[#B45309] mt-1">
-                Comprehensive training in modern React ecosystem, Python asynchronous backends, database architecture, and data security.
+              <p className="text-[#B45309] dark:text-[#FEF08A] mt-1">
+                {t.bioP1}
               </p>
             </div>
           </div>
 
           {/* Core Technical Stack */}
           <div>
-            <h2 className="text-xs font-mono font-bold text-[#6B7280] uppercase tracking-wider mb-2">
-              Technical Core
+            <h2 className="text-xs font-mono font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2">
+              {t.resumeStackHeading}
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-[#374151]">
-              <div className="p-2 rounded-[4px] bg-[#F9FAFB] border border-[#E5E7EB]">
-                <strong className="block text-[#111827] text-[11px]">Frontend</strong>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-[var(--text-secondary)]">
+              <div className="p-2 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)]">
+                <strong className="block text-[var(--text-primary)] text-[11px]">{t.skillCatFrontend}</strong>
                 React 19, TypeScript, Next.js, Tailwind v4
               </div>
-              <div className="p-2 rounded-[4px] bg-[#F9FAFB] border border-[#E5E7EB]">
-                <strong className="block text-[#111827] text-[11px]">Backend</strong>
+              <div className="p-2 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)]">
+                <strong className="block text-[var(--text-primary)] text-[11px]">{t.skillCatBackend}</strong>
                 Python FastAPI, Node.js, WebSockets, REST
               </div>
-              <div className="p-2 rounded-[4px] bg-[#F9FAFB] border border-[#E5E7EB]">
-                <strong className="block text-[#111827] text-[11px]">Automation</strong>
-                Telegram Bot API, Aiogram, Webhooks
+              <div className="p-2 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)]">
+                <strong className="block text-[var(--text-primary)] text-[11px]">{t.skillCatTelegram}</strong>
+                Aiogram, Asyncio, Webhooks, CRM Sync
               </div>
-              <div className="p-2 rounded-[4px] bg-[#F9FAFB] border border-[#E5E7EB]">
-                <strong className="block text-[#111827] text-[11px]">Security</strong>
-                Argon2id, AES-256-GCM, CSP, JWT
+              <div className="p-2 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)]">
+                <strong className="block text-[var(--text-primary)] text-[11px]">{t.skillCatSecurity}</strong>
+                Argon2id, AES-256-GCM, Zero-Trust
               </div>
             </div>
           </div>
 
-          {/* Featured Live Projects */}
+          {/* Projects Experience */}
           <div>
-            <h2 className="text-xs font-mono font-bold text-[#6B7280] uppercase tracking-wider mb-2">
-              Featured Live Deployments (6 Apps)
+            <h2 className="text-xs font-mono font-bold text-[var(--text-muted)] uppercase tracking-wider mb-3">
+              {t.resumeProjectsHeading}
             </h2>
             <div className="space-y-3">
-              {LIVE_PROJECTS.map((proj) => (
-                <div key={proj.id} className="p-3 rounded-[4px] bg-[#FAF8F5] border border-[#E8E2D7] text-xs">
-                  <div className="flex items-center justify-between font-bold text-[#111827]">
-                    <span>{proj.emoji} {proj.title}</span>
-                    <span className="font-mono text-[#D97706] text-[11px]">{proj.url.replace('https://', '')}</span>
+              {projects.map((proj) => (
+                <div
+                  key={proj.id}
+                  className="p-3.5 rounded-[4px] bg-[var(--bg-muted)] border border-[var(--border-subtle)] text-xs"
+                >
+                  <div className="flex items-center justify-between font-bold text-[var(--text-primary)]">
+                    <span className="flex items-center gap-1.5">
+                      <span>{proj.emoji}</span>
+                      <span>{proj.title}</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-[var(--accent-amber)]">{proj.category}</span>
                   </div>
-                  <p className="text-[#4B5563] mt-1">{proj.description}</p>
-                  <div className="mt-2 flex flex-wrap gap-1">
-                    {proj.tags.map((t, idx) => (
-                      <span key={idx} className="text-[10px] font-mono px-1.5 py-0.5 rounded-[2px] bg-[#FFFFFF] border border-[#D5CBBF] text-[#374151]">
-                        {t}
-                      </span>
-                    ))}
+                  <p className="text-[var(--text-secondary)] mt-1">{proj.description}</p>
+                  <div className="mt-2 text-[11px] font-mono text-[var(--accent-amber)]">
+                    URL: {proj.url}
                   </div>
                 </div>
               ))}

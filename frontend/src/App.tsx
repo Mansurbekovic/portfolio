@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
@@ -12,27 +13,29 @@ import { ContactPage } from './pages/ContactPage';
 export const App: React.FC = () => {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <div className="min-h-screen bg-[var(--bg-warm)] text-[var(--text-primary)] flex flex-col font-sans selection:bg-[#F59E0B] selection:text-[#111827]">
-          {/* Clean Minimalist Navigation Bar */}
-          <Navbar />
+      <LanguageProvider>
+        <BrowserRouter>
+          <div className="min-h-screen bg-[var(--bg-warm)] text-[var(--text-primary)] flex flex-col font-sans selection:bg-[#F59E0B] selection:text-[#111827]">
+            {/* Clean Minimalist Navigation Bar */}
+            <Navbar />
 
-          {/* Dedicated Page Views (pt-16 for fixed navbar clearance) */}
-          <main className="flex-grow pt-16">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/tools" element={<ToolsPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
+            {/* Dedicated Page Views (pt-16 for fixed navbar clearance) */}
+            <main className="flex-grow pt-16">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/tools" element={<ToolsPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </main>
 
-          {/* Minimalist Footer */}
-          <Footer />
-        </div>
-      </BrowserRouter>
+            {/* Minimalist Footer */}
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </LanguageProvider>
     </ThemeProvider>
   );
 };
