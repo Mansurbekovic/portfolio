@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: antigravity-portfolio-backend
+    name: rustambekov-portfolio-backend
     runtime: python
     region: oregon
     plan: free
