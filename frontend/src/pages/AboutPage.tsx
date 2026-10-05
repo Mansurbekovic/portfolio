@@ -61,10 +61,46 @@ export const AboutPage: React.FC = () => {
           <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
             {t.bioHeading}
           </h2>
-          <div className="minimal-card p-6 space-y-4 text-sm text-[var(--text-secondary)] leading-relaxed">
-            <p>{t.bioP1}</p>
-            <p>{t.bioP2}</p>
-            <p>{t.bioP3}</p>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+            
+            {/* Bio text */}
+            <div className="md:col-span-8 minimal-card p-6 space-y-4 text-sm text-[var(--text-secondary)] leading-relaxed">
+              <p>{t.bioP1}</p>
+              <p>{t.bioP2}</p>
+              <p>{t.bioP3}</p>
+            </div>
+
+            {/* Profile side badge */}
+            <div className="md:col-span-4 minimal-card p-4 flex flex-col items-center text-center">
+              <div className="relative w-36 h-44 rounded-[6px] overflow-hidden border-2 border-[var(--accent-amber)] shadow-md mb-3">
+                <img
+                  src="/images/profile.jpg"
+                  alt="Muhammadislom Rustambekov"
+                  className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-[#10B981] ring-2 ring-white dark:ring-black" />
+              </div>
+
+              <h3 className="font-bold text-sm text-[var(--text-primary)]">
+                Muhammadislom Rustambekov
+              </h3>
+              <p className="text-[11px] font-mono text-[var(--accent-amber)] mt-0.5">
+                Full-Stack Dasturchi
+              </p>
+              
+              <div className="mt-3 pt-3 border-t border-[var(--border-subtle)] w-full text-left space-y-1.5 text-[11px] font-mono text-[var(--text-muted)]">
+                <div>
+                  <strong className="text-[var(--text-secondary)]">Manzil:</strong> Asaka, Andijon
+                </div>
+                <div>
+                  <strong className="text-[var(--text-secondary)]">Tel:</strong> +998 50 301 63 47
+                </div>
+                <div>
+                  <strong className="text-[var(--text-secondary)]">Telegram:</strong> @muhammadislom10
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -85,23 +121,39 @@ export const AboutPage: React.FC = () => {
           </div>
 
           <div className="minimal-card p-6 bg-gradient-to-br from-[var(--bg-surface)] to-[var(--bg-muted)] border-l-4 border-l-[var(--accent-amber)]">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-[6px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[var(--accent-amber)] flex items-center justify-center shrink-0">
-                <Award className="w-6 h-6" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              
+              {/* Text Specs */}
+              <div className="md:col-span-8">
+                <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
                   <div className="text-xs font-mono font-bold text-[var(--accent-amber)] uppercase">{t.diplomaSubtitle}</div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-[3px] bg-[#ECFDF5] dark:bg-[#064E3B]/40 text-[#059669] dark:text-[#34D399] border border-[#A7F3D0] dark:border-[#059669]">
                     {t.diplomaVerifiedBadge}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-[var(--text-primary)] mt-0.5">
+                <h3 className="text-lg font-bold text-[var(--text-primary)]">
                   {t.diplomaMajor}
                 </h3>
-                <p className="text-xs text-[var(--text-muted)] mt-1">
-                  {t.diplomaIssuer}
+                <p className="text-xs text-[var(--text-muted)] mt-0.5">
+                  Turon International Education Center &bull; Asaka tumani, Andijon viloyati
                 </p>
+
+                {/* Official Credentials Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-4 p-3 rounded-[4px] bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[11px] font-mono">
+                  <div>
+                    <span className="text-[10px] text-[var(--text-muted)] block">Litsenziya:</span>
+                    <strong className="text-[var(--text-primary)]">№ 1043575</strong>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-[var(--text-muted)] block">Qayd raqami:</span>
+                    <strong className="text-[var(--accent-amber)]">№ 247</strong>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-[var(--text-muted)] block">O'quv davri:</span>
+                    <strong className="text-[var(--text-primary)]">2026 Yanvar - Sentabr</strong>
+                  </div>
+                </div>
+
                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[var(--text-secondary)]">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
@@ -121,7 +173,7 @@ export const AboutPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between">
+                <div className="mt-5 pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between">
                   <span className="text-[11px] text-[var(--text-muted)] font-mono">{t.diplomaClickHint}</span>
                   <button
                     type="button"
@@ -133,6 +185,27 @@ export const AboutPage: React.FC = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Certificate Image Preview Card */}
+              <div className="md:col-span-4 flex justify-center">
+                <div
+                  onClick={() => setCertModalOpen(true)}
+                  className="group relative cursor-pointer rounded-[6px] overflow-hidden border-2 border-[var(--accent-amber)] shadow-lg hover:shadow-xl transition-all"
+                  title="Kattalashtirish va asl nusxasini ko'rish"
+                >
+                  <img
+                    src="/images/certificate.jpg"
+                    alt="Turon International Education Center Sertifikati"
+                    className="w-full max-w-[220px] h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white p-2 text-center">
+                    <Eye className="w-6 h-6 mb-1 text-[var(--accent-amber)]" />
+                    <span className="text-[11px] font-mono font-bold">Kattalashtirib Ko'rish</span>
+                    <span className="text-[9px] opacity-80">№ 1043575 / № 247</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ExternalLink, Phone, Send, Award, ArrowRight, Layers, Cpu, Bot, ShieldCheck, Eye, Terminal } from 'lucide-react';
+import { ExternalLink, Phone, Send, Award, ArrowRight, Layers, Cpu, Bot, ShieldCheck, Eye, Terminal, MapPin } from 'lucide-react';
 import { getProjects, type LiveProject } from '../data/projectsData';
 import { TelegramBotStatusWidget } from '../components/TelegramBotStatusWidget';
 import { ProjectDemoModal } from '../components/ProjectDemoModal';
@@ -16,52 +16,116 @@ export const HomePage: React.FC = () => {
       <div className="max-w-6xl mx-auto px-5">
         
         {/* Minimalist Hero */}
-        <section className="py-10 md:py-14 border-b border-[var(--border-subtle)]">
-          <div className="max-w-3xl">
+        <section className="py-10 md:py-16 border-b border-[var(--border-subtle)]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
-            {/* Accreditation Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[#92400E] dark:text-[var(--accent-amber)] border border-[#FDE68A] dark:border-[var(--accent-amber)] text-xs font-mono font-medium mb-6">
-              <Award className="w-3.5 h-3.5 text-[var(--accent-amber)]" />
-              <span>{t.heroBadge}</span>
+            {/* Left Column: Text & CTAs */}
+            <div className="lg:col-span-7">
+              {/* Accreditation Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-[#FEF3C7] dark:bg-[var(--accent-amber-light)] text-[#92400E] dark:text-[var(--accent-amber)] border border-[#FDE68A] dark:border-[var(--accent-amber)] text-xs font-mono font-medium mb-6">
+                <Award className="w-3.5 h-3.5 text-[var(--accent-amber)]" />
+                <span>{t.heroBadge}</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight leading-[1.12] mb-5">
+                Muhammadislom Rustambekov
+              </h1>
+
+              <p className="text-lg sm:text-xl font-medium text-[var(--text-secondary)] leading-relaxed mb-6">
+                {t.heroTitle}
+              </p>
+
+              <p className="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed mb-8">
+                {t.heroSubtitle}
+              </p>
+
+              {/* Quick Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3">
+                <NavLink to="/projects" className="btn-primary">
+                  <span>{t.btnExploreProjects}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </NavLink>
+
+                <a
+                  href="tel:+998503016347"
+                  className="btn-amber"
+                  title="Instant Call: +998 50 301 63 47"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>+998 50 301 63 47</span>
+                </a>
+
+                <a
+                  href="https://t.me/muhammadislom10"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-outline"
+                >
+                  <Send className="w-3.5 h-3.5 text-[var(--accent-amber)]" />
+                  <span>@muhammadislom10</span>
+                </a>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight leading-[1.12] mb-5">
-              Muhammadislom Rustambekov
-            </h1>
+            {/* Right Column: Professional Portrait & Live Status Card */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="relative group max-w-sm w-full">
+                {/* Ambient glow backdrop */}
+                <div className="absolute -inset-1.5 bg-gradient-to-tr from-[var(--accent-amber)]/25 to-amber-500/10 rounded-[12px] blur-lg opacity-70 group-hover:opacity-100 transition duration-500" />
+                
+                {/* Main Card */}
+                <div className="relative rounded-[8px] overflow-hidden bg-[var(--bg-surface)] border-2 border-[var(--border-strong)] shadow-xl transition-all">
+                  
+                  {/* Photo with subtle vignette and hover scale */}
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[var(--bg-muted)]">
+                    <img
+                      src="/images/profile.jpg"
+                      alt="Muhammadislom Rustambekov"
+                      className="w-full h-full object-cover object-top group-hover:scale-103 transition-transform duration-500 ease-out"
+                      loading="eager"
+                    />
+                    
+                    {/* Gradient Overlay for badges readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
 
-            <p className="text-lg sm:text-xl font-medium text-[var(--text-secondary)] leading-relaxed mb-6">
-              {t.heroTitle}
-            </p>
+                    {/* Top status indicator */}
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-[4px] bg-black/60 backdrop-blur-md border border-white/10 text-white text-[11px] font-mono flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+                      <span>{t.onlineStatus}</span>
+                    </div>
 
-            <p className="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed mb-8">
-              {t.heroSubtitle}
-            </p>
+                    {/* Bottom identity plaque over photo */}
+                    <div className="absolute bottom-3 left-3 right-3 text-white">
+                      <div className="text-sm font-bold tracking-tight">Muhammadislom Rustambekov</div>
+                      <div className="text-[11px] text-amber-300 font-mono flex items-center gap-1 mt-0.5">
+                        <MapPin className="w-3 h-3" />
+                        <span>Andijon, Asaka &bull; Toshkent</span>
+                      </div>
+                    </div>
+                  </div>
 
-            {/* Quick Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3">
-              <NavLink to="/projects" className="btn-primary">
-                <span>{t.btnExploreProjects}</span>
-                <ArrowRight className="w-4 h-4" />
-              </NavLink>
+                  {/* Card Lower Detail Bar */}
+                  <div className="p-3.5 bg-[var(--bg-warm)] border-t border-[var(--border-subtle)] flex items-center justify-between">
+                    <div>
+                      <div className="text-[11px] font-mono font-bold text-[var(--accent-amber)] uppercase">
+                        Turon Int. Center
+                      </div>
+                      <div className="text-xs text-[var(--text-secondary)] font-medium">
+                        Full-Stack & Telegram Dev
+                      </div>
+                    </div>
 
-              <a
-                href="tel:+998503016347"
-                className="btn-amber"
-                title="Instant Call: +998 50 301 63 47"
-              >
-                <Phone className="w-4 h-4" />
-                <span>+998 50 301 63 47</span>
-              </a>
+                    <NavLink
+                      to="/about"
+                      className="text-xs font-mono font-bold text-[var(--accent-amber)] hover:opacity-80 flex items-center gap-1"
+                    >
+                      <span>Biografiya</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </NavLink>
+                  </div>
 
-              <a
-                href="https://t.me/muhammadislom10"
-                target="_blank"
-                rel="noreferrer"
-                className="btn-outline"
-              >
-                <Send className="w-3.5 h-3.5 text-[var(--accent-amber)]" />
-                <span>@muhammadislom10</span>
-              </a>
+                </div>
+              </div>
             </div>
 
           </div>

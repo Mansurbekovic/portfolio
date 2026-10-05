@@ -216,6 +216,12 @@ export interface Translations {
   certModalMajor: string;
   certModalAuth: string;
   certModalVerifiedFooter: string;
+  certTabOriginal: string;
+  certTabCover: string;
+  certLicenseLabel: string;
+  certRegNumLabel: string;
+  certPeriodLabel: string;
+  certLocationLabel: string;
   demoModalNewTab: string;
   demoModalConnecting: string;
   demoModalTarget: string;
@@ -426,6 +432,12 @@ export const translations: Record<Language, Translations> = {
     certModalMajor: 'Asosiy Stack',
     certModalAuth: 'Haqiqiylik',
     certModalVerifiedFooter: 'Turon Xalqaro Ta\'lim Markazi tomonidan rasman tasdiqlangan raqamli hujjat',
+    certTabOriginal: 'Sertifikat (Asli)',
+    certTabCover: 'Qattiq Muqova',
+    certLicenseLabel: 'Litsenziya:',
+    certRegNumLabel: 'Qayd Raqami:',
+    certPeriodLabel: 'O\'qish Davri:',
+    certLocationLabel: 'Manzil:',
     demoModalNewTab: 'Yangi Oynada Ochish',
     demoModalConnecting: 'Jonli ishlab chiqarish tuguniga ulanmoqda...',
     demoModalTarget: 'Manzil:',
@@ -634,6 +646,12 @@ export const translations: Record<Language, Translations> = {
     certModalMajor: 'Основной Стек',
     certModalAuth: 'Аутентификация',
     certModalVerifiedFooter: 'Официальный верифицированный цифровой сертификат Учебного Центра Turon',
+    certTabOriginal: 'Сертификат (Оригинал)',
+    certTabCover: 'Твёрдая Обложка',
+    certLicenseLabel: 'Лицензия:',
+    certRegNumLabel: 'Регистрационный №:',
+    certPeriodLabel: 'Период Обучения:',
+    certLocationLabel: 'Адрес:',
     demoModalNewTab: 'Открыть в Новой Вкладке',
     demoModalConnecting: 'Подключение к живому производственному узлу...',
     demoModalTarget: 'Адрес:',
@@ -842,6 +860,12 @@ export const translations: Record<Language, Translations> = {
     certModalMajor: 'Major Stack',
     certModalAuth: 'Authentication',
     certModalVerifiedFooter: 'Official verified digital credential issued by Turon International Education Center',
+    certTabOriginal: 'Certificate (Original)',
+    certTabCover: 'Hard Cover',
+    certLicenseLabel: 'License:',
+    certRegNumLabel: 'Registration №:',
+    certPeriodLabel: 'Study Period:',
+    certLocationLabel: 'Location:',
     demoModalNewTab: 'Open in New Tab',
     demoModalConnecting: 'Connecting to live production node...',
     demoModalTarget: 'Target:',
