@@ -264,20 +264,17 @@ export const apiService = {
   },
 
   async submitContact(data: { name: string; email: string; subject: string; message: string }) {
-    try {
-      const res = await fetch(`${API_BASE}/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      if (res.ok) return await res.json();
-    } catch {
-      // fallback
-    }
+    // Delivered via Netlify Forms (form registered in public/__forms.html)
+    const body = new URLSearchParams({ 'form-name': 'contact', 'bot-field': '', ...data });
+    const res = await fetch('/__forms.html', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString()
+    });
+    if (!res.ok) throw new Error(`Contact submission failed (${res.status})`);
     return {
       status: "DISPATCH_CONFIRMED",
-      message: "Message securely encrypted and dispatched to Antigravity Operations.",
-      cryptographic_receipt: `SHA256-${Math.random().toString(36).substring(2, 12).toUpperCase()}...`,
+      cryptographic_receipt: `MSG-${Date.now().toString(36).toUpperCase()}`,
       timestamp: new Date().toISOString()
     };
   }

@@ -196,6 +196,7 @@ export interface Translations {
   contactSubmitBtn: string;
   contactSubmittingBtn: string;
   contactSuccessDigest: string;
+  contactErrorMsg: string;
 
   // Modals
   resumeModalTitle: string;
@@ -406,7 +407,8 @@ export const translations: Record<Language, Translations> = {
     contactMessagePlaceholder: 'Loyihangiz tafsilotlari yoki vazifangiz haqida batafsil yozing...',
     contactSubmitBtn: 'Xabarni Xavfsiz Yuborish',
     contactSubmittingBtn: 'Yuborilmoqda...',
-    contactSuccessDigest: 'Xabaringiz qabul qilindi va Telegram orqali yetkazildi. Kriptografik chek:',
+    contactSuccessDigest: 'Xabaringiz muvaffaqiyatli yuborildi. Tez orada javob beraman. Chek raqami:',
+    contactErrorMsg: 'Xabarni yuborib bo‘lmadi. Iltimos, qaytadan urinib ko‘ring yoki Telegram orqali bog‘laning.',
 
     resumeModalTitle: 'Muhammadislom Rustambekov — Rasmiy Rezyume (CV)',
     resumePrintBtn: 'PDF Yuklab Olish / Chop Etish',
@@ -614,7 +616,8 @@ export const translations: Record<Language, Translations> = {
     contactMessagePlaceholder: 'Опишите подробности вашего проекта, стек или требования...',
     contactSubmitBtn: 'Отправить Зашифрованное Сообщение',
     contactSubmittingBtn: 'Отправка...',
-    contactSuccessDigest: 'Ваше сообщение подтверждено и направлено в Telegram. Криптографический чек:',
+    contactSuccessDigest: 'Ваше сообщение успешно отправлено. Скоро отвечу. Номер чека:',
+    contactErrorMsg: 'Не удалось отправить сообщение. Попробуйте ещё раз или напишите в Telegram.',
 
     resumeModalTitle: 'Мухаммадислом Рустамбеков — Официальное Резюме (CV)',
     resumePrintBtn: 'Печать / Сохранить в PDF',
@@ -822,7 +825,8 @@ export const translations: Record<Language, Translations> = {
     contactMessagePlaceholder: 'Provide details about your project specifications or goals...',
     contactSubmitBtn: 'Send Encrypted Message',
     contactSubmittingBtn: 'Transmitting...',
-    contactSuccessDigest: 'Your message has been verified and dispatched to Telegram. Cryptographic receipt:',
+    contactSuccessDigest: 'Your message was sent successfully. I will reply soon. Receipt ID:',
+    contactErrorMsg: 'Your message could not be sent. Please try again or reach out on Telegram.',
 
     resumeModalTitle: 'Muhammadislom Rustambekov — Curriculum Vitae (CV)',
     resumePrintBtn: 'Print / Save as PDF',
