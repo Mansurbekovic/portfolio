@@ -30,3 +30,20 @@ services:
         value: ""
       - key: ANTHROPIC_API_KEY
         value: ""
+
+  - type: worker
+    name: rustambekov-portfolio-bot
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: bot
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: python main.py
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: BOT_TOKEN
+        value: "8998536495:AAFjX6H191oD0p9PMyAVQKX3UV7CkPRjoSw"
+      - key: OWNER_CHAT_ID
+        value: "8452066082"
