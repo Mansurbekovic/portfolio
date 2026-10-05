@@ -89,6 +89,7 @@ async def get_telegram_bot_status() -> Dict[str, Any]:
     Returns real-time health and heartbeat metrics of Muhammadislom's Telegram automation infrastructure.
     """
     return {
+        "bot_handle": "@muhammadislom10",
         "bot_handles": ["@Muhammadislom_08", "@muhammadislom10"],
         "status": "ONLINE",
         "service_health": "100% OPERATIONAL",

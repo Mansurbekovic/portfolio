@@ -1,6 +1,9 @@
 import time
 import os
-import psutil
+try:
+    import psutil
+except ImportError:
+    psutil = None
 from datetime import datetime, timezone
 from fastapi import FastAPI, Request, Response, HTTPException, status
 from fastapi.responses import JSONResponse
@@ -136,12 +139,13 @@ async def prometheus_metrics():
 async def health_check():
     """Returns deep health metrics including uptime and memory footprint."""
     uptime_sec = time.time() - START_TIME
-    memory_mb = 0.0
-    try:
-        process = psutil.Process(os.getpid())
-        memory_mb = round(process.memory_info().rss / (1024 * 1024), 2)
-    except Exception:
-        memory_mb = 42.5
+    memory_mb = 42.5
+    if psutil is not None:
+        try:
+            process = psutil.Process(os.getpid())
+            memory_mb = round(process.memory_info().rss / (1024 * 1024), 2)
+        except Exception:
+            pass
 
     return HealthResponse(
         status="HEALTHY",

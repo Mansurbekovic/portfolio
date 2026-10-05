@@ -150,3 +150,50 @@ def test_telegram_bot_status():
     assert data["status"] == "ONLINE"
     assert "muhammadislom10" in data["bot_handle"]
     assert "99.99%" in data["uptime"]
+
+def test_api_v1_health_and_metrics():
+    """Verify dedicated /api/v1/health and /api/v1/metrics endpoints."""
+    h_res = client.get("/api/v1/health")
+    assert h_res.status_code == 200
+    h_data = h_res.json()
+    assert h_data["status"] == "HEALTHY"
+    assert h_data["uptime_seconds"] >= 0
+
+    m_res = client.get("/api/v1/metrics")
+    assert m_res.status_code == 200
+    assert "antigravity_http_requests_total" in m_res.text
+
+def test_contact_send_api():
+    """Verify POST /api/v1/contact/send with cryptographic validation and receipt."""
+    payload = {
+        "name": "Enterprise Client",
+        "email": "partner@enterprise.io",
+        "subject": "Telegram Automation Project RFP",
+        "message": "We would like to hire you for a high-concurrency bot architecture.",
+        "phone": "+998 50 301 63 47",
+        "company": "Enterprise Global"
+    }
+    res = client.post("/api/v1/contact/send", json=payload)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "DISPATCH_CONFIRMED"
+    assert "SHA256-" in data["cryptographic_receipt"]
+    assert data["zero_trust_status"] == "VERIFIED_AUDIT_PASS"
+
+def test_projects_architecture_and_statistics():
+    """Verify deep project architecture and portfolio analytics endpoints."""
+    stat_res = client.get("/api/v1/projects/statistics/summary")
+    assert stat_res.status_code == 200
+    stats = stat_res.json()
+    assert stats["total_active_projects"] == 6
+    assert stats["average_performance_score"] >= 95
+
+    arch_res = client.get("/api/v1/projects/word-game/architecture")
+    assert arch_res.status_code == 200
+    arch = arch_res.json()
+    assert "WebSocket" in arch["data_flow"]
+
+    filter_res = client.get("/api/v1/projects?category=Multiplayer Gaming")
+    assert filter_res.status_code == 200
+    assert len(filter_res.json()) >= 1
+
