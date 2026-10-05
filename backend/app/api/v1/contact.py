@@ -14,13 +14,13 @@ from app.core.config import settings
 
 router = APIRouter(prefix="/contact", tags=["Encrypted Contact & Engagement"])
 
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
-TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
+TELEGRAM_BOT_TOKEN = settings.TELEGRAM_BOT_TOKEN
+TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID
 SMTP_HOST = os.getenv("SMTP_HOST", "")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASS = os.getenv("SMTP_PASS", "")
-CONTACT_RECEIVER_EMAIL = os.getenv("CONTACT_RECEIVER_EMAIL", "rustambekov.islom@gmail.com")
+CONTACT_RECEIVER_EMAIL = settings.CONTACT_RECEIVER_EMAIL
 
 def sanitize_text(text: str) -> str:
     """Removes HTML and executable script tags for defense against XSS."""
@@ -33,14 +33,14 @@ async def send_telegram_alert(name: str, email: str, subject: str, message: str,
         return True
     try:
         tg_text = (
-            f"🚀 <b>New Portfolio Inquiry!</b>\n\n"
-            f"👤 <b>Name:</b> {name}\n"
+            f"🚀 <b>Yangi Portfolio Murojaati!</b>\n\n"
+            f"👤 <b>Ism:</b> {name}\n"
             f"📧 <b>Email:</b> {email}\n"
-            f"📞 <b>Phone:</b> {phone or 'Not specified'}\n"
-            f"📌 <b>Subject:</b> {subject}\n\n"
-            f"💬 <b>Message:</b>\n{message}\n\n"
-            f"🔒 <i>Audit Receipt: SHA256-{digest[:16]}</i>\n"
-            f"⚡ <i>Channel: Antigravity Secure Gateway</i>"
+            f"📞 <b>Tel:</b> {phone or 'Ko\'rsatilmagan'}\n"
+            f"📌 <b>Mavzu:</b> {subject}\n\n"
+            f"💬 <b>Xabar:</b>\n{message}\n\n"
+            f"🔒 <i>Kriptografik chek: SHA256-{digest[:16]}</i>\n"
+            f"⚡ <i>Kanal: Rustambekov Muhammadislom Portfolio</i>"
         )
         async with httpx.AsyncClient(timeout=6.0) as client:
             tg_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -71,7 +71,7 @@ def send_smtp_email(name: str, email: str, subject: str, message: str, phone: Op
             f"Subject: {subject}\n\n"
             f"Message:\n{message}\n\n"
             f"---\n"
-            f"Dispatched via Antigravity FastAPI Microservice at {datetime.now(timezone.utc).isoformat()}"
+            f"Dispatched via Rustambekov Muhammadislom FastAPI Microservice at {datetime.now(timezone.utc).isoformat()}"
         )
         msg.attach(MIMEText(body, "plain"))
 
@@ -89,8 +89,8 @@ async def get_telegram_bot_status() -> Dict[str, Any]:
     Returns real-time health and heartbeat metrics of Muhammadislom's Telegram automation infrastructure.
     """
     return {
-        "bot_handle": "@muhammadislom10",
-        "bot_handles": ["@Muhammadislom_08", "@muhammadislom10"],
+        "bot_handle": "@porfolio_1bot",
+        "bot_handles": ["@porfolio_1bot", "@muhammadislom10", "@Muhammadislom_08"],
         "status": "ONLINE",
         "service_health": "100% OPERATIONAL",
         "uptime": "99.99%",

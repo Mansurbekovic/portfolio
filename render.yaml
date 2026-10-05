@@ -11,7 +11,7 @@ services:
     autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.9
+        value: "3.11.9"
       - key: ENVIRONMENT
         value: production
       - key: SECRET_KEY
@@ -20,3 +20,13 @@ services:
         value: "true"
       - key: CSP_ENABLED
         value: "true"
+      - key: ALLOWED_ORIGINS
+        value: '["*"]'
+      - key: TELEGRAM_BOT_TOKEN
+        value: "8998536495:AAFjX6H191oD0p9PMyAVQKX3UV7CkPRjoSw"
+      - key: TELEGRAM_CHAT_ID
+        value: "8452066082"
+      - key: GEMINI_API_KEY
+        value: ""
+      - key: ANTHROPIC_API_KEY
+        value: ""

@@ -4,13 +4,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Antigravity Innovations API"
+    PROJECT_NAME: str = "Rustambekov Muhammadislom API"
     VERSION: str = "1.0.0"
     API_V1_PREFIX: str = "/api/v1"
     ENVIRONMENT: str = "development"
 
     # Security
-    SECRET_KEY: str = "antigravity_super_secret_key_change_in_production_military_grade"
+    SECRET_KEY: str = "rustambekov_muhammadislom_super_secret_production_key_2026"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
@@ -23,6 +23,11 @@ class Settings(BaseSettings):
     ]
     CSP_ENABLED: bool = True
     HSTS_ENABLED: bool = True
+
+    # Telegram Alerts
+    TELEGRAM_BOT_TOKEN: str = ""
+    TELEGRAM_CHAT_ID: str = ""
+    CONTACT_RECEIVER_EMAIL: str = "rustambekov.islom@gmail.com"
 
     # AI Model Integrations
     GEMINI_API_KEY: str = Field(default="", description="Google Gemini API Key")

@@ -76,13 +76,17 @@ async def add_security_and_logging_headers(request: Request, call_next):
 
     # 6. Content Security Policy (CSP)
     if settings.CSP_ENABLED:
+        connect_sources = "'self' http://localhost:8000 http://127.0.0.1:8000 https://api.anthropic.com https://generativelanguage.googleapis.com"
+        for origin in settings.ALLOWED_ORIGINS:
+            if origin != "*" and origin not in connect_sources:
+                connect_sources += f" {origin}"
         response.headers["Content-Security-Policy"] = (
             "default-src 'self'; "
             "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
             "font-src 'self' https://fonts.gstatic.com; "
             "img-src 'self' data: https:; "
-            "connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 https://api.anthropic.com https://generativelanguage.googleapis.com; "
+            f"connect-src {connect_sources}; "
             "frame-ancestors 'none';"
         )
 
