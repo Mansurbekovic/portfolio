@@ -56,12 +56,8 @@ export const Navbar: React.FC = () => {
             to="/"
             className="flex items-center gap-2.5 text-decoration-none shrink-0 group focus:outline-none"
           >
-            <div className="w-8 h-8 rounded-[6px] bg-[#111827] text-white flex items-center justify-center font-bold text-xs tracking-wider border border-[var(--border-strong)] relative overflow-hidden group-hover:scale-105 transition-transform shrink-0">
-              <img
-                src="/images/profile.jpg"
-                alt="Muhammadislom Rustambekov"
-                className="w-full h-full object-cover object-top"
-              />
+            <div className="w-8 h-8 rounded-[6px] bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 text-slate-950 flex items-center justify-center font-extrabold text-xs tracking-wider border border-amber-400/60 shadow-sm relative overflow-hidden group-hover:scale-105 transition-transform shrink-0 font-mono select-none">
+              MR
               <span className="absolute bottom-0 right-0 w-2 h-2 bg-[#10B981] border border-white dark:border-black rounded-full" />
             </div>
             <div className="flex flex-col">

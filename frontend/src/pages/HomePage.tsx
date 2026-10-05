@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ExternalLink, Phone, Send, Award, ArrowRight, Layers, Cpu, Bot, ShieldCheck, Eye, Terminal, MapPin } from 'lucide-react';
+import { ExternalLink, Phone, Send, Award, ArrowRight, Layers, Cpu, Bot, ShieldCheck, Eye, Terminal } from 'lucide-react';
 import { getProjects, type LiveProject } from '../data/projectsData';
 import { TelegramBotStatusWidget } from '../components/TelegramBotStatusWidget';
 import { ProjectDemoModal } from '../components/ProjectDemoModal';
+import { CertificateModal } from '../components/CertificateModal';
+import { IdentityProofModal } from '../components/IdentityProofModal';
 import { useLanguage } from '../context/LanguageContext';
 
 export const HomePage: React.FC = () => {
   const [selectedDemo, setSelectedDemo] = useState<LiveProject | null>(null);
+  const [isCertOpen, setIsCertOpen] = useState(false);
+  const [isIdentityProofOpen, setIsIdentityProofOpen] = useState(false);
   const { language, t } = useLanguage();
   const projects = getProjects(language);
 
@@ -67,61 +71,82 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Professional Portrait & Live Status Card */}
+            {/* Right Column: Official Turon IT Certificate Card (Replaces upfront selfie) */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="relative group max-w-sm w-full">
-                {/* Ambient glow backdrop */}
-                <div className="absolute -inset-1.5 bg-gradient-to-tr from-[var(--accent-amber)]/25 to-amber-500/10 rounded-[12px] blur-lg opacity-70 group-hover:opacity-100 transition duration-500" />
+              <div className="relative group max-w-md w-full">
+                {/* Ambient gold glow backdrop */}
+                <div className="absolute -inset-1.5 bg-gradient-to-tr from-amber-500/30 to-amber-600/10 rounded-[12px] blur-lg opacity-70 group-hover:opacity-100 transition duration-500" />
                 
-                {/* Main Card */}
-                <div className="relative rounded-[8px] overflow-hidden bg-[var(--bg-surface)] border-2 border-[var(--border-strong)] shadow-xl transition-all">
+                {/* Main Certificate Showcase Card */}
+                <div className="relative rounded-[8px] overflow-hidden bg-[var(--bg-surface)] border-2 border-amber-500/40 shadow-2xl transition-all">
                   
-                  {/* Photo with subtle vignette and hover scale */}
-                  <div className="relative aspect-[4/5] overflow-hidden bg-[var(--bg-muted)]">
+                  {/* Top Accreditation Ribbon */}
+                  <div className="bg-gradient-to-r from-amber-950 via-slate-900 to-black px-3.5 py-2 border-b border-amber-500/30 flex items-center justify-between text-white">
+                    <div className="flex items-center gap-1.5">
+                      <Award className="w-4 h-4 text-amber-400" />
+                      <span className="text-[11px] font-mono font-bold tracking-wider text-amber-300 uppercase">
+                        Davlat Litsenziyali Sertifikat
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3" />
+                      <span>TASDIQLANGAN</span>
+                    </span>
+                  </div>
+
+                  {/* Certificate Image Viewport with click to zoom */}
+                  <div 
+                    onClick={() => setIsCertOpen(true)}
+                    className="relative aspect-[16/11] overflow-hidden bg-[var(--bg-muted)] cursor-pointer group/cert"
+                    title="Kattalashtirib ko'rish uchun bosing"
+                  >
                     <img
-                      src="/images/profile.jpg"
-                      alt="Muhammadislom Rustambekov"
-                      className="w-full h-full object-cover object-top group-hover:scale-103 transition-transform duration-500 ease-out"
+                      src="/images/certificate.jpg"
+                      alt="Turon Xalqaro Ta'lim Markazi Rasmiy Sertifikati"
+                      className="w-full h-full object-cover object-center group-hover/cert:scale-103 transition-transform duration-500 ease-out"
                       loading="eager"
                     />
                     
-                    {/* Gradient Overlay for badges readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
+                    {/* Subtle gradient vignette */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
 
-                    {/* Top status indicator */}
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-[4px] bg-black/60 backdrop-blur-md border border-white/10 text-white text-[11px] font-mono flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-                      <span>{t.onlineStatus}</span>
+                    {/* Hover Inspect Prompt */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/cert:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-mono font-bold backdrop-blur-[2px]">
+                      <Eye className="w-4 h-4 text-amber-300" />
+                      <span>Sertifikatni kattalashtirib ko'rish</span>
                     </div>
 
-                    {/* Bottom identity plaque over photo */}
-                    <div className="absolute bottom-3 left-3 right-3 text-white">
-                      <div className="text-sm font-bold tracking-tight">Muhammadislom Rustambekov</div>
-                      <div className="text-[11px] text-amber-300 font-mono flex items-center gap-1 mt-0.5">
-                        <MapPin className="w-3 h-3" />
-                        <span>Andijon, Asaka &bull; Toshkent</span>
+                    {/* Bottom Metadata Plaque */}
+                    <div className="absolute bottom-2.5 left-3 right-3 text-white flex items-center justify-between">
+                      <div>
+                        <div className="text-xs font-bold tracking-tight">Turon Xalqaro Ta'lim Markazi</div>
+                        <div className="text-[10px] text-amber-300 font-mono">Litsenziya № 1043575 &bull; Qayd № 247</div>
                       </div>
+                      <span className="text-[10px] font-mono bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded border border-white/10">
+                        Rustambekov M.
+                      </span>
                     </div>
                   </div>
 
-                  {/* Card Lower Detail Bar */}
-                  <div className="p-3.5 bg-[var(--bg-warm)] border-t border-[var(--border-subtle)] flex items-center justify-between">
-                    <div>
-                      <div className="text-[11px] font-mono font-bold text-[var(--accent-amber)] uppercase">
-                        Turon Int. Center
-                      </div>
-                      <div className="text-xs text-[var(--text-secondary)] font-medium">
-                        Full-Stack & Telegram Dev
-                      </div>
-                    </div>
-
-                    <NavLink
-                      to="/about"
-                      className="text-xs font-mono font-bold text-[var(--accent-amber)] hover:opacity-80 flex items-center gap-1"
+                  {/* Card Lower Action Bar */}
+                  <div className="p-3 bg-[var(--bg-warm)] border-t border-[var(--border-subtle)] flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsCertOpen(true)}
+                      className="text-xs font-mono font-bold text-[var(--accent-amber)] hover:opacity-80 flex items-center gap-1.5 cursor-pointer"
                     >
-                      <span>Biografiya</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </NavLink>
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Sertifikat (HD)</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsIdentityProofOpen(true)}
+                      className="text-xs font-mono px-2.5 py-1 rounded bg-[var(--bg-muted)] hover:bg-[var(--border-subtle)] border border-[var(--border-strong)] text-[var(--text-primary)] font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                    >
+                      <ShieldCheck className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Shaxsni tasdiqlash</span>
+                    </button>
                   </div>
 
                 </div>
@@ -289,6 +314,19 @@ export const HomePage: React.FC = () => {
 
       {/* Quick Demo Modal */}
       <ProjectDemoModal project={selectedDemo} onClose={() => setSelectedDemo(null)} />
+
+      {/* Official Turon Certificate Inspection Modal */}
+      <CertificateModal
+        isOpen={isCertOpen}
+        onClose={() => setIsCertOpen(false)}
+      />
+
+      {/* Official Identity Proof Modal */}
+      <IdentityProofModal
+        isOpen={isIdentityProofOpen}
+        onClose={() => setIsIdentityProofOpen(false)}
+        onOpenCertificate={() => setIsCertOpen(true)}
+      />
     </div>
   );
 };

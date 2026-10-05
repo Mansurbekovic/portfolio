@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Award, CheckCircle2, Phone, Code2, Server, Terminal, Shield, ArrowRight, Eye, GitCommit, Flame } from 'lucide-react';
+import { Award, CheckCircle2, Phone, Code2, Server, Terminal, Shield, ShieldCheck, ArrowRight, Eye, GitCommit, Flame } from 'lucide-react';
 import { CertificateModal } from '../components/CertificateModal';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -70,33 +70,62 @@ export const AboutPage: React.FC = () => {
               <p>{t.bioP3}</p>
             </div>
 
-            {/* Profile side badge */}
-            <div className="md:col-span-4 minimal-card p-4 flex flex-col items-center text-center">
-              <div className="relative w-36 h-44 rounded-[6px] overflow-hidden border-2 border-[var(--accent-amber)] shadow-md mb-3">
+            {/* Profile side badge: Serious IT Engineering Dossier */}
+            <div className="md:col-span-4 minimal-card p-4 flex flex-col items-center text-center relative overflow-hidden border-2 border-amber-500/30">
+              
+              {/* Top security plaque */}
+              <div className="w-full flex items-center justify-between pb-2 mb-3 border-b border-[var(--border-subtle)] text-[10px] font-mono">
+                <span className="text-amber-500 font-bold uppercase tracking-wider flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-amber-500" />
+                  <span>Verified Identity</span>
+                </span>
+                <span className="text-[var(--text-muted)]">№ 1043575</span>
+              </div>
+
+              {/* Photo Frame with serious studio contrast & hologram */}
+              <div className="relative w-40 h-48 rounded-[8px] overflow-hidden border-2 border-amber-500/40 shadow-xl mb-3 bg-slate-950 group">
                 <img
                   src="/images/profile.jpg"
                   alt="Muhammadislom Rustambekov"
-                  className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover object-top contrast-[1.06] brightness-[0.97] saturate-[0.94] group-hover:scale-103 transition-transform duration-500"
                 />
-                <div className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-[#10B981] ring-2 ring-white dark:ring-black" />
+                
+                {/* Subtle vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
+                
+                {/* Status indicator */}
+                <div className="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-sm border border-emerald-500/40 text-[9px] font-mono text-emerald-400 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>ONLINE</span>
+                </div>
+
+                {/* Bottom ID label */}
+                <div className="absolute bottom-2 left-2 right-2 text-center">
+                  <div className="text-[10px] font-mono text-amber-300 bg-black/80 backdrop-blur-sm py-0.5 rounded border border-amber-500/20">
+                    Rustambekov M. &bull; 17 y.o.
+                  </div>
+                </div>
               </div>
 
-              <h3 className="font-bold text-sm text-[var(--text-primary)]">
-                Muhammadislom Rustambekov
+              <h3 className="font-extrabold text-sm text-[var(--text-primary)] tracking-tight">
+                Rustambekov Muhammadislom
               </h3>
-              <p className="text-[11px] font-mono text-[var(--accent-amber)] mt-0.5">
-                Full-Stack Dasturchi
+              <p className="text-[11px] font-mono text-[var(--accent-amber)] font-semibold mt-0.5">
+                Full-Stack Software Engineer
               </p>
               
               <div className="mt-3 pt-3 border-t border-[var(--border-subtle)] w-full text-left space-y-1.5 text-[11px] font-mono text-[var(--text-muted)]">
-                <div>
-                  <strong className="text-[var(--text-secondary)]">Manzil:</strong> Asaka, Andijon
+                <div className="flex justify-between">
+                  <span className="text-[var(--text-secondary)]">Manzil:</span>
+                  <span className="text-[var(--text-primary)]">Andijon &bull; Toshkent</span>
                 </div>
-                <div>
-                  <strong className="text-[var(--text-secondary)]">Tel:</strong> +998 50 301 63 47
+                <div className="flex justify-between">
+                  <span className="text-[var(--text-secondary)]">Markaz:</span>
+                  <span className="text-amber-500 font-bold">Turon Xalqaro</span>
                 </div>
-                <div>
-                  <strong className="text-[var(--text-secondary)]">Telegram:</strong> @muhammadislom10
+                <div className="flex justify-between">
+                  <span className="text-[var(--text-secondary)]">Litsenziya:</span>
+                  <span className="text-[var(--text-primary)] font-bold">№ 1043575</span>
                 </div>
               </div>
             </div>
