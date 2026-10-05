@@ -13,16 +13,21 @@ export const ContactPage: React.FC = () => {
   });
   const [submitting, setSubmitting] = useState(false);
   const [receipt, setReceipt] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setSubmitting(true);
+    setError(false);
     try {
       const res = await apiService.submitContact(formData);
       setReceipt(res.cryptographic_receipt);
       setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch {
+      setReceipt(null);
+      setError(true);
     } finally {
       setSubmitting(false);
     }
@@ -137,7 +142,13 @@ export const ContactPage: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="mb-6 p-4 rounded-[6px] bg-[#FEF2F2] dark:bg-[#2A1215] border border-[#FECACA] dark:border-[#7F1D1D] text-xs text-[#B91C1C] dark:text-[#FCA5A5]">
+              {t.contactErrorMsg}
+            </div>
+          )}
+
+          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-mono text-[var(--text-secondary)] mb-1">
