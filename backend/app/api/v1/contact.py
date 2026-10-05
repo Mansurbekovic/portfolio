@@ -32,11 +32,12 @@ async def send_telegram_alert(name: str, email: str, subject: str, message: str,
     if not (TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID):
         return True
     try:
+        phone_display = phone or "Ko'rsatilmagan"
         tg_text = (
             f"🚀 <b>Yangi Portfolio Murojaati!</b>\n\n"
             f"👤 <b>Ism:</b> {name}\n"
             f"📧 <b>Email:</b> {email}\n"
-            f"📞 <b>Tel:</b> {phone or 'Ko\'rsatilmagan'}\n"
+            f"📞 <b>Tel:</b> {phone_display}\n"
             f"📌 <b>Mavzu:</b> {subject}\n\n"
             f"💬 <b>Xabar:</b>\n{message}\n\n"
             f"🔒 <i>Kriptografik chek: SHA256-{digest[:16]}</i>\n"
