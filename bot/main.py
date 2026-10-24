@@ -277,6 +277,38 @@ MOTIVATIONAL_QUOTES = [
 ]
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ACHIEVEMENTS & CERTIFICATES DATA
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACHIEVEMENTS = [
+    {"emoji": "🏆", "title": "6 ta LIVE loyiha muallifi", "desc": "Barcha loyihalar hozir ishlaydi — 24/7 production"},
+    {"emoji": "🎓", "title": "Turon Xalqaro Ta'lim Markazi", "desc": "Davlat Litsenziyasi № 1043575 • Qayd № 247"},
+    {"emoji": "💻", "title": "30+ texnologiya ustasi", "desc": "Frontend, Backend, Bot, DevOps, Security"},
+    {"emoji": "🔒", "title": "Kiberxavfsizlik eksperi", "desc": "AES-256-GCM, JWT, Argon2id, CSP Level 3, HSTS"},
+    {"emoji": "🤖", "title": "Professional Bot Developer", "desc": "Aiogram 3.x, Inline Mode, FSM, Webhook"},
+    {"emoji": "🚀", "title": "17 yoshda professional portfolio", "desc": "Full-Stack Engineer — eng yosh tajribali dasturchi"},
+]
+
+WORK_EXPERIENCE = [
+    {
+        "period": "2024 — Hozir",
+        "role": "Full-Stack Software Engineer",
+        "company": "Freelance / Shaxsiy loyihalar",
+        "details": "React 19, Next.js, FastAPI, Telegram Bot, E-Commerce platformalar yaratish"
+    },
+    {
+        "period": "2024",
+        "role": "Turon Xalqaro Ta'lim Markazi",
+        "company": "Sertifikatlangan dasturchi",
+        "details": "Full-Stack dasturlash bo'yicha sertifikat. Davlat litsenziyasi bilan tasdiqlangan."
+    },
+]
+
+EDUCATION = [
+    {"emoji": "🎓", "title": "Turon Xalqaro Ta'lim Markazi", "detail": "Full-Stack Web Development • Sertifikat: Litsenziya № 1043575"},
+    {"emoji": "📚", "title": "Mustaqil o'rganish", "detail": "YouTube, Udemy, freeCodeCamp, MDN Web Docs orqali 2+ yil tajriba"},
+]
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # QUEUE SYSTEM
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 QUEUE_FILE = os.path.join(os.path.dirname(__file__), "queue_data.json")
@@ -340,26 +372,31 @@ def skill_bar(name: str, level: int) -> str:
 def main_menu_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
         [
+            InlineKeyboardButton(text="🪪 Visitka", callback_data="visitka"),
             InlineKeyboardButton(text="👨‍💻 Men haqimda", callback_data="about"),
-            InlineKeyboardButton(text="📈 Skilllarim", callback_data="skills"),
         ],
         [
-            InlineKeyboardButton(text="🚀 Loyihalarim", callback_data="projects_0"),
+            InlineKeyboardButton(text="📈 Skilllarim", callback_data="skills"),
             InlineKeyboardButton(text="💻 Tech Stack", callback_data="tech"),
         ],
         [
+            InlineKeyboardButton(text="🚀 Loyihalarim", callback_data="projects_0"),
             InlineKeyboardButton(text="💼 Xizmatlar", callback_data="services"),
-            InlineKeyboardButton(text="❓ FAQ", callback_data="faq_menu"),
+        ],
+        [
+            InlineKeyboardButton(text="🏆 Yutuqlarim", callback_data="achievements"),
+            InlineKeyboardButton(text="📜 Tajriba", callback_data="experience"),
         ],
         [
             InlineKeyboardButton(text="📝 Navbatga yozilish", callback_data="queue_start"),
             InlineKeyboardButton(text="📊 Dashboard", callback_data="dashboard"),
         ],
         [
+            InlineKeyboardButton(text="❓ FAQ", callback_data="faq_menu"),
             InlineKeyboardButton(text="💡 Motivatsiya", callback_data="quote"),
-            InlineKeyboardButton(text="📞 Aloqa", callback_data="contact"),
         ],
         [
+            InlineKeyboardButton(text="📞 Aloqa", callback_data="contact"),
             InlineKeyboardButton(text="🌐 Portfolio saytim", url=PORTFOLIO_URL),
         ],
     ])
@@ -503,10 +540,12 @@ async def cmd_start(message: Message):
         "📍 O'zbekiston 🇺🇿\n\n"
 
         "┌─────────────────────────────┐\n"
+        "│  🪪 Visitka — shaxsiy kartochka       │\n"
         "│  🚀 6 ta live loyiha muallifi     │\n"
         "│  💻 30+ texnologiya ustasi         │\n"
         "│  🤖 Professional bot developer  │\n"
         "│  🔒 Kiberxavfsizlik eksperi       │\n"
+        "│  🏆 Turon Xalqaro sertifikati     │\n"
         "└─────────────────────────────┘\n\n"
 
         "Quyidagi menyudan kerakli bo'limni tanlang 👇"
@@ -546,18 +585,21 @@ async def cmd_help(message: Message):
     text = (
         "⚡ <b>ANTIGRAVITY — Buyruqlar</b>\n"
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
-        "  /start    — Botni ishga tushirish\n"
-        "  /about    — Men haqimda\n"
-        "  /skills   — Skilllar va darajalar\n"
-        "  /projects — Live loyihalar\n"
-        "  /tech     — Texnologiyalar\n"
-        "  /services — Xizmatlar ro'yxati\n"
-        "  /faq      — Ko'p so'raladigan savollar\n"
-        "  /queue    — Navbatga yozilish\n"
-        "  /stats    — Dashboard statistika\n"
-        "  /quote    — Motivatsion iqtibos\n"
-        "  /contact  — Aloqa ma'lumotlari\n"
-        "  /help     — Shu yordam\n"
+        "  /start      — Botni ishga tushirish\n"
+        "  /visitka    — 🪪 Shaxsiy visitka\n"
+        "  /about      — Men haqimda\n"
+        "  /skills     — Skilllar va darajalar\n"
+        "  /projects   — Live loyihalar\n"
+        "  /tech       — Texnologiyalar\n"
+        "  /services   — Xizmatlar ro'yxati\n"
+        "  /achieve    — Yutuqlar va sertifikatlar\n"
+        "  /experience — Ish tajribasi\n"
+        "  /faq        — Ko'p so'raladigan savollar\n"
+        "  /queue      — Navbatga yozilish\n"
+        "  /stats      — Dashboard statistika\n"
+        "  /quote      — Motivatsion iqtibos\n"
+        "  /contact    — Aloqa ma'lumotlari\n"
+        "  /help       — Shu yordam\n"
     )
     await message.answer(text, reply_markup=back_kb())
 
@@ -613,6 +655,200 @@ async def cmd_about(msg: Message):
 async def cb_about(cb: CallbackQuery):
     metrics.track_callback()
     await _send_about(cb.message, edit=True)
+    await cb.answer()
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# VISITKA (Business Card)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async def _send_visitka(target, edit=False):
+    dev = DEVELOPER
+    tg_user = dev["telegram"].replace("@", "")
+    now = datetime.now(timezone(timedelta(hours=5)))
+    hour = now.hour
+    if hour < 6:
+        status_icon, status_text = "🌙", "Offline (tun)"
+    elif hour < 9:
+        status_icon, status_text = "🌅", "Erta tong"
+    elif hour < 18:
+        status_icon, status_text = "🟢", "Online — tayyor!"
+    elif hour < 23:
+        status_icon, status_text = "🟡", "Kechqurun — javob beraman"
+    else:
+        status_icon, status_text = "🌙", "Offline (tun)"
+
+    # Top 3 skills
+    top_skills = sorted(SKILLS.items(), key=lambda x: x[1], reverse=True)[:3]
+    skills_line = " • ".join(f"{name}" for name, _ in top_skills)
+
+    text = (
+        "┌─────────────────────────────────────┐\n"
+        "│                                                                │\n"
+        "│   🪪  <b>SHAXSIY VISITKA</b>                        │\n"
+        "│                                                                │\n"
+        "├─────────────────────────────────────┤\n"
+        "│                                                                │\n"
+        f"│   👤  <b>{dev['full_name']}</b>      │\n"
+        f"│   🎯  {dev['role']}                 │\n"
+        f"│   🎂  {dev['age']}                                 │\n"
+        "│                                                                │\n"
+        "├─────────────────────────────────────┤\n"
+        "│                                                                │\n"
+        f"│   📱  <code>{dev['phone']}</code>              │\n"
+        f"│   📧  <code>{dev['email']}</code>  │\n"
+        f"│   ✈️   {dev['telegram']}                     │\n"
+        f"│   🐙  GitHub                                      │\n"
+        "│                                                                │\n"
+        "├─────────────────────────────────────┤\n"
+        "│                                                                │\n"
+        f"│   📍  {dev['location']}                        │\n"
+        f"│   {status_icon}  {status_text}                       │\n"
+        "│                                                                │\n"
+        "├─────────────────────────────────────┤\n"
+        "│                                                                │\n"
+        f"│   🔥  {skills_line}\n"
+        f"│   🚀  {len(PROJECTS)} ta live loyiha\n"
+        f"│   💻  {sum(len(v) for v in TECH_STACK.values())}+ texnologiya\n"
+        "│                                                                │\n"
+        "├─────────────────────────────────────┤\n"
+        "│                                                                │\n"
+        "│   🏆  <b>Turon Xalqaro Ta'lim Markazi</b>   │\n"
+        "│   📜  Litsenziya № 1043575 • Qayd № 247   │\n"
+        "│   ✅  <i>Davlat tomonidan tasdiqlangan</i>    │\n"
+        "│                                                                │\n"
+        "└─────────────────────────────────────┘\n\n"
+        "💡 <i>Ushbu visitkani do'stlaringizga ham ulashing!</i>"
+    )
+
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text="✈️ Telegram'da yozish", url=f"https://t.me/{tg_user}"),
+            InlineKeyboardButton(text="📱 Qo'ng'iroq", url=f"tel:{dev['phone'].replace(' ', '')}"),
+        ],
+        [
+            InlineKeyboardButton(text="🐙 GitHub", url=dev['github']),
+            InlineKeyboardButton(text="🌐 Portfolio", url=PORTFOLIO_URL),
+        ],
+        [
+            InlineKeyboardButton(text="📤 Visitkani ulashish", switch_inline_query="visitka"),
+        ],
+        [
+            InlineKeyboardButton(text="👨‍💻 Men haqimda", callback_data="about"),
+            InlineKeyboardButton(text="🏆 Yutuqlarim", callback_data="achievements"),
+        ],
+        [InlineKeyboardButton(text="🔙 Bosh menyu", callback_data="main_menu")],
+    ])
+
+    if edit:
+        await target.edit_text(text, reply_markup=kb)
+    else:
+        await target.answer(text, reply_markup=kb)
+
+
+@router.message(Command("visitka"))
+async def cmd_visitka(msg: Message):
+    metrics.track_user(msg.from_user.id)
+    await _send_visitka(msg)
+
+
+@router.callback_query(F.data == "visitka")
+async def cb_visitka(cb: CallbackQuery):
+    metrics.track_callback()
+    await _send_visitka(cb.message, edit=True)
+    await cb.answer()
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ACHIEVEMENTS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async def _send_achievements(target, edit=False):
+    lines = [
+        "🏆 <b>YUTUQLAR VA SERTIFIKATLAR</b>",
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
+    ]
+    for i, ach in enumerate(ACHIEVEMENTS):
+        connector = "└" if i == len(ACHIEVEMENTS) - 1 else "├"
+        lines.append(f"  {connector} {ach['emoji']} <b>{ach['title']}</b>")
+        lines.append(f"      <i>{ach['desc']}</i>\n")
+
+    lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    lines.append("💡 <i>Har bir yutuq real tajriba va mehnat bilan qo'lga kiritilgan.</i>")
+
+    text = "\n".join(lines)
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text="🪪 Visitka", callback_data="visitka"),
+            InlineKeyboardButton(text="📜 Tajriba", callback_data="experience"),
+        ],
+        [InlineKeyboardButton(text="🔙 Bosh menyu", callback_data="main_menu")],
+    ])
+    if edit:
+        await target.edit_text(text, reply_markup=kb)
+    else:
+        await target.answer(text, reply_markup=kb)
+
+
+@router.message(Command("achieve"))
+async def cmd_achievements(msg: Message):
+    metrics.track_user(msg.from_user.id)
+    await _send_achievements(msg)
+
+
+@router.callback_query(F.data == "achievements")
+async def cb_achievements(cb: CallbackQuery):
+    metrics.track_callback()
+    await _send_achievements(cb.message, edit=True)
+    await cb.answer()
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# WORK EXPERIENCE
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async def _send_experience(target, edit=False):
+    lines = [
+        "📜 <b>ISH TAJRIBASI VA TA'LIM</b>",
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
+        "💼 <b>ISH TAJRIBASI</b>\n",
+    ]
+    for exp in WORK_EXPERIENCE:
+        lines.append(f"  📅 <b>{exp['period']}</b>")
+        lines.append(f"  🏢 {exp['role']}")
+        lines.append(f"      <i>{exp['company']}</i>")
+        lines.append(f"      {exp['details']}\n")
+
+    lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    lines.append("\n🎓 <b>TA'LIM</b>\n")
+    for edu in EDUCATION:
+        lines.append(f"  {edu['emoji']} <b>{edu['title']}</b>")
+        lines.append(f"      <i>{edu['detail']}</i>\n")
+
+    lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    lines.append("📈 <i>Doimiy o'sish va rivojlanishda</i>")
+
+    text = "\n".join(lines)
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text="🪪 Visitka", callback_data="visitka"),
+            InlineKeyboardButton(text="🏆 Yutuqlarim", callback_data="achievements"),
+        ],
+        [InlineKeyboardButton(text="🔙 Bosh menyu", callback_data="main_menu")],
+    ])
+    if edit:
+        await target.edit_text(text, reply_markup=kb)
+    else:
+        await target.answer(text, reply_markup=kb)
+
+
+@router.message(Command("experience"))
+async def cmd_experience(msg: Message):
+    metrics.track_user(msg.from_user.id)
+    await _send_experience(msg)
+
+
+@router.callback_query(F.data == "experience")
+async def cb_experience(cb: CallbackQuery):
+    metrics.track_callback()
+    await _send_experience(cb.message, edit=True)
     await cb.answer()
 
 
@@ -1180,9 +1416,44 @@ async def admin_queue_done(cb: CallbackQuery):
 @router.inline_query()
 async def inline_handler(query: InlineQuery):
     results = []
-    search = query.query.lower()
+    search = query.query.lower().strip()
+
+    # Always include visitka as first result when searched
+    if not search or "visitka" in search or "card" in search or "kontakt" in search:
+        dev = DEVELOPER
+        visitka_text = (
+            "🪪 <b>SHAXSIY VISITKA</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            f"👤 <b>{dev['full_name']}</b>\n"
+            f"🎯 {dev['role']}\n"
+            f"🎂 {dev['age']}\n"
+            f"📍 {dev['location']}\n\n"
+            f"📱 <code>{dev['phone']}</code>\n"
+            f"📧 <code>{dev['email']}</code>\n"
+            f"✈️ {dev['telegram']}\n"
+            f"🐙 {dev['github']}\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"🚀 {len(PROJECTS)} ta live loyiha • "
+            f"{sum(len(v) for v in TECH_STACK.values())}+ texnologiya\n"
+            "🏆 Turon Xalqaro Ta'lim Markazi\n"
+            "📜 Litsenziya № 1043575 • Qayd № 247\n\n"
+            f"🌐 {PORTFOLIO_URL}\n\n"
+            "💡 <i>Professional dasturchi — loyihangizni muhokama qilaylik!</i>"
+        )
+        results.append(
+            InlineQueryResultArticle(
+                id="visitka",
+                title="🪪 Shaxsiy Visitka — Rustambekov Muhammadislom",
+                description="Full-Stack Engineer • Aloqa ma'lumotlari • Portfolio",
+                input_message_content=InputTextMessageContent(
+                    message_text=visitka_text,
+                    parse_mode=ParseMode.HTML
+                )
+            )
+        )
+
     for proj in PROJECTS:
-        if search and search not in proj["title"].lower() and search not in proj["category"].lower():
+        if search and search not in proj["title"].lower() and search not in proj["category"].lower() and search != "visitka":
             continue
         results.append(
             InlineQueryResultArticle(
@@ -1210,11 +1481,14 @@ async def inline_handler(query: InlineQuery):
 async def set_commands():
     commands = [
         BotCommand(command="start", description="⚡ Botni ishga tushirish"),
+        BotCommand(command="visitka", description="🪪 Shaxsiy visitka"),
         BotCommand(command="about", description="👨‍💻 Men haqimda"),
         BotCommand(command="skills", description="📈 Skill darajalari"),
         BotCommand(command="projects", description="🚀 Live loyihalar"),
         BotCommand(command="tech", description="💻 Texnologiyalar"),
         BotCommand(command="services", description="💼 Xizmatlar"),
+        BotCommand(command="achieve", description="🏆 Yutuqlar"),
+        BotCommand(command="experience", description="📜 Ish tajribasi"),
         BotCommand(command="faq", description="❓ Savollar"),
         BotCommand(command="queue", description="📝 Navbatga yozilish"),
         BotCommand(command="stats", description="📊 Dashboard"),
